@@ -5,6 +5,9 @@
 
 Massive file name modifier made in Java using JavaFX
 
+<a href="http://download1335.mediafire.com/q5a22yi7i53g/8dpfz3x0b4ea2nd/Namely.jar">Download Namely (jar)</a>
+
+
 ## Features
 
 * Easy to use interface.
