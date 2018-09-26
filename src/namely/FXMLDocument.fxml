@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="541.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namely.FXMLDocumentController">
+    <children>
+      <TabPane fx:id="tabPane" prefHeight="193.0" prefWidth="541.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab closable="false" text="Inverse">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="imgf" fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@Images/img-Inverse.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inverse all the text in the files’ name" AnchorPane.leftAnchor="20.0" />
+                     </children></AnchorPane>
+               </content></Tab>
+          <Tab closable="false" text="Change Order">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@Images/img-order.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="separator" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="70.0" />
+                        <Text layoutX="20.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Separator" />
+                        <Button fx:id="spacingOption" layoutX="100.0" layoutY="87.0" mnemonicParsing="false" onAction="#switchSpacing" prefHeight="23.0" prefWidth="49.0" styleClass="separatorButton" text="A-B" textAlignment="CENTER" />
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change order based in a separator" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+            <Tab closable="false" text="Cases">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@Images/img-cases.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Option" x="20.0" y="78.0" />
+                        <ComboBox fx:id="casesOption" layoutX="20.0" layoutY="87.0" onAction="#switchCasesOption" prefWidth="140.0" />
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Put all the text in lowercase, uppercase or reverse them" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+            <Tab closable="false" text="Replace">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@Images/img-rename.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Original" wrappingWidth="60.35546875" x="20.0" y="78.0" />
+                        <TextField fx:id="renameOriginal" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Replacement" wrappingWidth="90.35546875" x="175.0" y="78.0" AnchorPane.leftAnchor="175.0" />
+                        <TextField fx:id="renameReplacement" layoutX="175.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Replace part of the files’ name" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+            <Tab closable="false" text="Extensions">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@Images/img-extension.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Original" wrappingWidth="60.35546875" x="20.0" y="78.0" AnchorPane.leftAnchor="20.0" />
+                        <TextField fx:id="extensionOriginal" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" AnchorPane.leftAnchor="20.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Replacement" wrappingWidth="90.35546875" x="175.0" y="78.0" AnchorPane.leftAnchor="175.0" />
+                        <TextField fx:id="extensionReplacement" layoutX="190.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" AnchorPane.leftAnchor="175.0" />
+                        <Text fill="#5e5e5e" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning: If the ‘Replacement’ field is empty, all files which" x="20.0" y="132.0" AnchorPane.leftAnchor="20.0">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#5e5e5e" strokeType="OUTSIDE" strokeWidth="0.0" text="extension match the ‘Original’ field will be Deleted" x="20.0" y="150.0" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+        </tabs>
+      </TabPane>
+      <ToggleButton fx:id="previewButton" layoutY="116.0" mnemonicParsing="false" onAction="#switchPreview" prefHeight="30.0" prefWidth="100.0" text="Preview" AnchorPane.rightAnchor="16.0" />
+      <Button layoutY="156.0" mnemonicParsing="false" onAction="#apply" prefHeight="30.0" prefWidth="100.0" styleClass="button-apply" text="Apply" AnchorPane.rightAnchor="16.0" />
+      <Text fx:id="folderPath" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="directoryText" text="Select a Path..." wrappingWidth="290.13671875" x="140.0" y="73.0" AnchorPane.leftAnchor="135.0" />
+      <Button layoutX="20.0" layoutY="53.0" mnemonicParsing="false" onAction="#selectFolder" prefHeight="30.0" prefWidth="100.0" text="Select Folder" AnchorPane.leftAnchor="20.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Regex" x="330.0" y="115.0" AnchorPane.rightAnchor="176.3125" />
+      <TextField fx:id="regexInput" layoutX="332.0" layoutY="124.0" prefHeight="23.0" prefWidth="77.0" AnchorPane.rightAnchor="134.0" />
+      <Button fx:id="regexInfo" layoutY="99.0" maxHeight="10.0" maxWidth="10.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="5.0" styleClass="regex-info" text="?" AnchorPane.rightAnchor="158.0" />
+      <VBox layoutX="4.0" layoutY="195.0" prefHeight="300.0" prefWidth="534.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="195.0">
+         <children>
+            <TableView fx:id="table">
+              <columns>
+                <TableColumn fx:id="tableName" prefWidth="289.0" text="Name" />
+                <TableColumn fx:id="tableModified" prefWidth="121.0" text="Last Modified" />
+                  <TableColumn fx:id="tableSize" prefWidth="122.0" text="Size" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <Text fill="#838383" strokeType="OUTSIDE" strokeWidth="0.0" text="Version: 0.9" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="9.0" />
+      <Button fx:id="aboutButton" mnemonicParsing="false" styleClass="about-button" text="About" textFill="#979797" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="5.0" />
+    </children>
+</AnchorPane>
