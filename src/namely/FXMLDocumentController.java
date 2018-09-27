@@ -17,7 +17,7 @@ public class FXMLDocumentController implements Initializable {
     
     DirectoryChooser directoryChooser;
     File directory, folder;
-    boolean isSpaceInChangeOrder, previewActive;
+    boolean isSpaceInChangeOrder, previewActive, showFile;
     int casesOptionSelected;
     char charSeparator;
     
@@ -121,7 +121,9 @@ public class FXMLDocumentController implements Initializable {
                     SingleFile newfile = new SingleFile(name, 
                                                         date.format(aux.lastModified()), 
                                                         getSizeInKb(aux)+" kB");
-                    table.getItems().add(newfile);
+                    if (showFile) 
+                        table.getItems().add(newfile);
+                    showFile = true;
                 }
             }
         }
@@ -153,6 +155,9 @@ public class FXMLDocumentController implements Initializable {
                 case 3:
                     return NameFunctions.replace(aux, renameOriginal.getText(), renameReplacement.getText());
                 case 4:
+                    if (extensionOriginal.getText().equals(NameFunctions.getExtension(aux.getName()).substring(1)) && 
+                            extensionReplacement.getText().length()==0)
+                        showFile = false;
                     return NameFunctions.changeExtensions(aux, extensionOriginal.getText(), extensionReplacement.getText(), deleteFile);
             }
         return aux;
