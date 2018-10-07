@@ -5,7 +5,7 @@
 
 Massive file renamer utility
 
-<a href="http://download1335.mediafire.com/q5a22yi7i53g/8dpfz3x0b4ea2nd/Namely.jar">Download Namely (jar)</a>
+<a href="http://www.mediafire.com/file/8dpfz3x0b4ea2nd/Namely.jar/file">Download Namely v1.0 (jar)</a>
 
 
 ## Features
