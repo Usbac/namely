@@ -8,7 +8,7 @@
 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/4672ce70938599.5bb43a6702fce.png" width="49%" height="49%"> 
 </p>
 
-Massive file renamer utility.
+Massive file renamer utility
 
 <a href="http://www.mediafire.com/file/8dpfz3x0b4ea2nd/Namely.jar/file">Download Namely v1.0 (jar)</a>
 
