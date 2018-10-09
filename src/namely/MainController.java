@@ -2,10 +2,6 @@ package namely;
 
 import java.io.File;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Calendar;
 import java.util.ResourceBundle; 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -24,10 +19,11 @@ public class MainController implements Initializable {
     DirectoryChooser directoryChooser;
     File directory, folder;
     boolean previewActive;
+    int filesNumber, foldersNumber;
 
     
     @FXML
-    protected Text folderPath;
+    protected Text folderPath, itemsQuantity;
     @FXML
     protected TextField separator, renameOriginal, renameReplacement, extensionField, sizeField, regexInput;
     @FXML
@@ -149,6 +145,17 @@ public class MainController implements Initializable {
     }
     
     
+    public void countItemsQuantity() {
+        if (filesNumber > 0) {
+            itemsQuantity.setText(String.valueOf(filesNumber) + " Files");
+            if (foldersNumber > 0)
+                itemsQuantity.setText(itemsQuantity.getText() + ", " + String.valueOf(foldersNumber) + " Folders");
+        } else {
+            itemsQuantity.setText("No files...");   
+        }
+    }
+    
+    
     public void ListFiles(File[] listOfFiles, boolean preview) {
         for (File file: listOfFiles)
             if (file.isFile())
@@ -179,7 +186,7 @@ public class MainController implements Initializable {
                     + "If this field is empty all files will be modified.")
         );
         aboutButton.setTooltip(
-            new Tooltip("Namely \nCreated by Usbac")
+            new Tooltip("Namely v1.2 \nCreated by Usbac")
         );
         recursiveButton.setTooltip(
             new Tooltip("Recursive \nWhen active, the files in the directory's subfolders will be modified too.")

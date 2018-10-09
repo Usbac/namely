@@ -107,7 +107,7 @@
       <Text fx:id="folderPath" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="directoryText" text="No folder selected..." wrappingWidth="263.13671875" x="140.0" y="73.0" AnchorPane.leftAnchor="150.0" />
       <Button layoutX="30.0" layoutY="53.0" mnemonicParsing="false" onAction="#selectFolder" prefHeight="30.0" prefWidth="100.0" styleClass="button-folder" text="  Select Folder" AnchorPane.leftAnchor="40.0" />
       <Button fx:id="recursiveButton" layoutX="13.0" layoutY="53.0" mnemonicParsing="false" onAction="#switchRecursive" prefHeight="30.0" prefWidth="30.0" styleClass="button-recursive" AnchorPane.leftAnchor="20.0" />
-      <ImageView fx:id="recursiveImage" fitHeight="18.0" fitWidth="18.0" layoutX="26.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" styleClass="image-recursive" AnchorPane.leftAnchor="27.0">
+      <ImageView fx:id="recursiveImage" fitHeight="18.0" fitWidth="18.0" layoutX="26.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" styleClass="image-recursive" AnchorPane.leftAnchor="27.0">
          <image>
             <Image url="@Images/recursive-icon.png" />
          </image>
@@ -115,17 +115,17 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Regex" x="330.0" y="115.0" AnchorPane.rightAnchor="176.3125" />
       <TextField fx:id="regexInput" layoutX="332.0" layoutY="124.0" prefHeight="23.0" prefWidth="77.0" AnchorPane.rightAnchor="134.0" />
       <Button fx:id="regexInfo" layoutY="99.0" maxHeight="10.0" maxWidth="10.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="5.0" styleClass="transparent-button" text="?" AnchorPane.rightAnchor="158.0" />
-      <Text fill="#838383" strokeType="OUTSIDE" strokeWidth="0.0" text="Version: 1.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="9.0" />
+      <Text fx:id="itemsQuantity" fill="#838383" strokeType="OUTSIDE" strokeWidth="0.0" text="No files..." AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="9.0" />
       <Button fx:id="aboutButton" mnemonicParsing="false" styleClass="about-button" text="About" textFill="#979797" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="5.0" />
-      <AnchorPane layoutY="196.0" prefHeight="324.0" prefWidth="541.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="196.0">
+      <AnchorPane layoutY="196.0" prefHeight="303.0" prefWidth="541.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="196.0">
          <children>
-            <VBox layoutY="4.0" prefHeight="295.0" prefWidth="534.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+            <VBox layoutY="4.0" prefHeight="295.0" prefWidth="534.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                <children>
                   <TableView fx:id="table">
                     <columns>
-                      <TableColumn fx:id="tableName" prefWidth="289.0" text="Name" />
-                      <TableColumn fx:id="tableModified" prefWidth="121.0" text="Last Modified" />
-                      <TableColumn fx:id="tableSize" prefWidth="122.0" text="Size" />
+                      <TableColumn fx:id="tableName" prefWidth="306.0" text="Name" />
+                      <TableColumn fx:id="tableModified" prefWidth="108.0" styleClass="tableModified" text="Last Modified" />
+                      <TableColumn fx:id="tableSize" prefWidth="118.0" text="Size" />
                     </columns>
                   </TableView>
                </children>

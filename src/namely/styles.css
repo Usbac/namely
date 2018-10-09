@@ -200,3 +200,9 @@
 .date-picker .button {
     -fx-background-color: transparent;
 }
+
+/* ---> TABLES <--- */
+
+.tableModified {
+  -fx-alignment: CENTER;
+}

@@ -5,16 +5,7 @@ import java.io.File;
 public final class FileFunctions {
     
     public static String getExtension(String fileName) {
-        int i = fileName.length()-1;
-        String extension = "";
-        while(i >= 0) {
-            if (fileName.charAt(i) == '.') 
-                break;
-            extension += String.valueOf(fileName.charAt(i));
-            i--;
-        }
-        extension += ".";
-        return new StringBuilder(extension).reverse().toString();
+        return fileName.substring(fileName.lastIndexOf("."), fileName.length());
     }
     
     
