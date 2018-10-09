@@ -92,7 +92,7 @@ public class ListController {
                 case 1:
                     char charSeparator = (main.separator.getText().length() > 0)?
                             main.separator.getText().charAt(0): ' ';
-                    return FileFunctions.change_order(aux, charSeparator, isSpaceInChangeOrder);
+                    return FileFunctions.changeOrder(aux, charSeparator, isSpaceInChangeOrder);
                 case 2:
                     return FileFunctions.cases(aux, casesOptionSelected);
                 case 3:

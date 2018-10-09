@@ -48,25 +48,20 @@ public class MainController implements Initializable {
     private void selectFolder() {
         directoryChooser.setTitle("Choose a Directory...");
         directory = directoryChooser.showDialog(null);
-        if (directory!=null) {
-            table.getItems().clear();
-            table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            previewButton.setText("Preview");
-            previewActive = false;
-            listController.updateListView(false);
-        }
+        if (directory == null) 
+            return;
+        table.getItems().clear();
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        previewButton.setText("Preview");
+        previewActive = false;
+        listController.updateListView(false);
     }
     
     
     @FXML 
     private void switchRecursive() {
-        if (listController.recursive) {
-            listController.recursive = false;
-            recursiveImage.setOpacity(0.5f);
-        } else {
-            listController.recursive = true;
-            recursiveImage.setOpacity(1f);            
-        }
+        listController.recursive = !listController.recursive;
+        recursiveImage.setOpacity(listController.recursive? 1f:0.5f);     
         listController.updateListView(previewActive);
     }
 
@@ -192,13 +187,12 @@ public class MainController implements Initializable {
             new Tooltip("Recursive \nWhen active, the files in the directory's subfolders will be modified too.")
         );
         //Load Original File view when moving between Tabs
-        tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-            @Override
-            public void changed(ObservableValue<?extends Tab> old, Tab oldTab, Tab newTab) {
-                previewButton.setText("Preview");
-                previewActive = false;
-                listController.updateListView(previewActive);
-            }
+        tabPane.getSelectionModel()
+               .selectedItemProperty()
+               .addListener((ObservableValue<?extends Tab> old, Tab oldTab, Tab newTab) -> {
+            previewButton.setText("Preview");
+            previewActive = false;
+            listController.updateListView(previewActive);
         });
     }    
 }

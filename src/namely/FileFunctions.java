@@ -25,11 +25,11 @@ public final class FileFunctions {
         for (int i = length; i >= 0; i--)
             inverseName += String.valueOf(file.getName().charAt(i));
 
-        return new File(file.getParent(), inverseName+extension);
+        return new File(file.getParent(), inverseName + extension);
     }
     
     
-    public static File change_order(File file, char separator, boolean spacing) {
+    public static File changeOrder(File file, char separator, boolean spacing) {
         //Check if the Separator is in the file's name, if it isn't return the file without changes.
         int totalSeparators = 0;
         for (int aux = 0; aux < file.getName().length(); aux++) {
@@ -54,12 +54,10 @@ public final class FileFunctions {
         String space = spacing? " ":"";
         
         //Delete extra whitespaces at the beginning or ending of the Parts
-        if (parts[0].charAt(parts[0].length()-1) == ' ') 
-            parts[0] = parts[0].substring(0, parts[0].length()-1);
-        if (parts[1].length() > 0 && parts[1].charAt(0) == ' ') 
-            parts[1] = parts[1].substring(1, parts[1].length());
+        parts[0] = parts[0].trim();
+        parts[1] = parts[1].trim();
         
-        String newName = parts[1]+space+String.valueOf(separator)+space+parts[0]+extension;
+        String newName = parts[1] + space + String.valueOf(separator) + space + parts[0] + extension;
         return new File(file.getParent(), newName);
     }
     
@@ -69,7 +67,7 @@ public final class FileFunctions {
         String newName = file.getName()
                              .replace(original, replacement);
         newName = newName.substring(0, newName.length()-extension.length());
-        return new File(file.getParent(), newName+extension);
+        return new File(file.getParent(), newName + extension);
     }
     
     
@@ -94,7 +92,7 @@ public final class FileFunctions {
                 newName = String.valueOf(chars).substring(0, length);
                 break;
         }
-        return new File(file.getParent(), newName+extension);    
+        return new File(file.getParent(), newName + extension);    
     }
     
     
@@ -104,7 +102,6 @@ public final class FileFunctions {
     
     
     public static String getSizeInKb(File file) {
-        return String.valueOf(Math.round((file.length()/1024f) * 100d) / 100d);
+        return String.format("%.2f", file.length()/1024f);
     }
-    
 }

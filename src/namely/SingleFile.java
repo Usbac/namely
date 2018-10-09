@@ -3,10 +3,10 @@ package namely;
 public class SingleFile {
     private String name, modified, size;
     
-    public SingleFile(String n, String m, String s) {
-        this.name = n;
-        this.modified = m;
-        this.size = s;
+    public SingleFile(String name, String modified, String size) {
+        this.name = name;
+        this.modified = modified;
+        this.size = size;
     }
 
     public String getName() {
