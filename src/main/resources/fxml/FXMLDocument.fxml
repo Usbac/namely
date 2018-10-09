@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="541.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="usbac.namely.MainController">
+    <children>
+      <TabPane fx:id="tabPane" prefHeight="193.0" prefWidth="541.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab closable="false" text="Inverse">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="imgf" fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@../images/img-Inverse.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inverse all the text in the files’ name" AnchorPane.leftAnchor="20.0" />
+                     </children></AnchorPane>
+               </content></Tab>
+          <Tab closable="false" text="Change Order">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@../images/img-order.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="separator" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="70.0" />
+                        <Text layoutX="20.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Separator" />
+                        <Button fx:id="spacingOption" layoutX="100.0" layoutY="87.0" mnemonicParsing="false" onAction="#switchSpacing" prefHeight="23.0" prefWidth="49.0" styleClass="separatorButton" text="A-B" textAlignment="CENTER" />
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change order based in a separator" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+            <Tab closable="false" text="Cases">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@../images/img-cases.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Option" x="20.0" y="78.0" />
+                        <ComboBox fx:id="casesOption" layoutX="20.0" layoutY="87.0" onAction="#switchCasesOption" prefWidth="140.0" />
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Put all the text in lowercase, uppercase or reverse them" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+            <Tab closable="false" text="Replace">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@../images/img-rename.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Original" wrappingWidth="60.35546875" x="20.0" y="78.0" />
+                        <TextField fx:id="renameOriginal" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Replacement" wrappingWidth="90.35546875" x="175.0" y="78.0" AnchorPane.leftAnchor="175.0" />
+                        <TextField fx:id="renameReplacement" layoutX="175.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Replace part of the files’ name" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+            <Tab closable="false" text="Delete Files">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@../images/img-extension.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Extension" wrappingWidth="60.35546875" x="20.0" y="78.0" AnchorPane.leftAnchor="20.0" />
+                        <TextField fx:id="extensionField" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="64.0" AnchorPane.leftAnchor="20.0" />
+                        <Text layoutX="-74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="34.6874982714653" x="175.0" y="78.0" AnchorPane.leftAnchor="100.0" />
+                        <DatePicker fx:id="datePicker" layoutX="101.0" layoutY="87.0" prefHeight="25.0" prefWidth="102.0" AnchorPane.leftAnchor="100.0" />
+                        <Text layoutX="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size" wrappingWidth="60.35546875" x="20.0" y="78.0" AnchorPane.leftAnchor="217.0" />
+                        <TextField fx:id="sizeField" layoutX="220.0" layoutY="87.0" prefHeight="23.0" prefWidth="97.0" promptText="Size in Kb" AnchorPane.leftAnchor="217.0" />
+                        <Button fx:id="sizeFilter" layoutX="242.0" layoutY="62.0" mnemonicParsing="false" onAction="#switchSizeFilter" styleClass="transparent-button" text="Bigger than" AnchorPane.leftAnchor="239.0" />
+                        <Button fx:id="dateFilter" layoutX="125.0" layoutY="62.0" mnemonicParsing="false" onAction="#switchDateFilter" styleClass="transparent-button" text="Newer than" AnchorPane.leftAnchor="124.0" />
+                        <Text fill="#5e5e5e" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning: The files listed below are the ones that will be deleted" x="20.0" y="145.0" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+        </tabs>
+      </TabPane>
+      <ToggleButton fx:id="previewButton" layoutY="116.0" mnemonicParsing="false" onAction="#switchPreview" prefHeight="30.0" prefWidth="100.0" text="Preview" AnchorPane.rightAnchor="16.0" />
+      <Button layoutY="156.0" mnemonicParsing="false" onAction="#apply" prefHeight="30.0" prefWidth="100.0" styleClass="button-apply" text="Apply" AnchorPane.rightAnchor="16.0" />
+      <Text fx:id="folderPath" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="directoryText" text="No folder selected..." wrappingWidth="263.13671875" x="140.0" y="73.0" AnchorPane.leftAnchor="158.0" />
+      <Button layoutX="30.0" layoutY="53.0" mnemonicParsing="false" onAction="#selectFolder" prefHeight="30.0" prefWidth="110.0" styleClass="button-folder" text="  Select Folder" AnchorPane.leftAnchor="40.0" />
+      <Button fx:id="recursiveButton" layoutX="13.0" layoutY="53.0" mnemonicParsing="false" onAction="#switchRecursive" prefHeight="30.0" prefWidth="30.0" styleClass="button-recursive" AnchorPane.leftAnchor="20.0" />
+      <ImageView fx:id="recursiveImage" fitHeight="18.0" fitWidth="18.0" layoutX="26.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" styleClass="image-recursive" AnchorPane.leftAnchor="27.0">
+         <image>
+            <Image url="@../images/recursive-icon.png" />
+         </image>
+      </ImageView>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Regex" x="330.0" y="115.0" AnchorPane.rightAnchor="176.3125" />
+      <TextField fx:id="regexInput" layoutX="332.0" layoutY="124.0" prefHeight="23.0" prefWidth="77.0" AnchorPane.rightAnchor="134.0" />
+      <Button fx:id="regexInfo" layoutY="99.0" maxHeight="10.0" maxWidth="10.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="5.0" styleClass="transparent-button" text="?" AnchorPane.rightAnchor="158.0" />
+      <Text fx:id="itemsQuantity" fill="#838383" strokeType="OUTSIDE" strokeWidth="0.0" text="No files..." AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="9.0" />
+      <Button fx:id="aboutButton" mnemonicParsing="false" styleClass="about-button" text="About" textFill="#979797" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="5.0" />
+      <AnchorPane layoutY="196.0" prefHeight="303.0" prefWidth="541.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="196.0">
+         <children>
+            <VBox layoutY="4.0" prefHeight="295.0" prefWidth="534.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+               <children>
+                  <TableView fx:id="table">
+                    <columns>
+                      <TableColumn fx:id="tableName" prefWidth="306.0" text="Name" />
+                      <TableColumn fx:id="tableModified" prefWidth="108.0" styleClass="tableModified" text="Last Modified" />
+                      <TableColumn fx:id="tableSize" prefWidth="118.0" text="Size" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>
