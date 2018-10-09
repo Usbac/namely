@@ -10,7 +10,7 @@
 
 Massive file renamer utility
 
-<a href="http://www.mediafire.com/file/8dpfz3x0b4ea2nd/Namely.jar/file">Download Namely v1.0 (jar)</a>
+<a href="https://github.com/Usbac/Namely/raw/master/target/Namely-1.2.jar">Download Namely v1.0 (jar)</a>
 
 
 ## Features
@@ -37,4 +37,4 @@ When contributing to this repository, you can first discuss the change you wish 
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE) file for details
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details
