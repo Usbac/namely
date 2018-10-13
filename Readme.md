@@ -12,6 +12,19 @@ Massive file renamer utility
 
 <a href="https://github.com/Usbac/Namely/raw/master/target/Namely-1.2.jar">Download Namely v1.0 (jar)</a>
 
+## Build and Run
+```bash
+
+mvn clean package spring-boot:repackage
+
+```
+This will create executable `jar` file in the `target` directory. Then run
+
+```bash
+
+java -jar target/Namely-1.2.jar
+
+```
 
 ## Features
 
