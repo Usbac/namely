@@ -8,7 +8,11 @@
 
 <h4 align="center">Massive file renamer utility.</h4>
 
+<p align="center">
 <img src="https://img.shields.io/badge/stability-stable-brightgreen.svg"> <img src="https://img.shields.io/badge/version-1.4.0-blue.svg">
+</p>
+
+</br>
 
 <p align="center">
 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cdd8a170938599.5bb43a6702b70.png" width="60%" height="60%"> 
