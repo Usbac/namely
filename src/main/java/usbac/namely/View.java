@@ -1,6 +1,5 @@
 package usbac.namely;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle; 
 import javafx.beans.value.ObservableValue;
@@ -10,16 +9,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 
-public class MainController implements Initializable {
+public final class View implements Initializable {
     
-    ListController listController;
-    DirectoryChooser directoryChooser;
-    File directory, folder;
+    Controller controller;
     boolean previewActive;
-    int filesNumber, foldersNumber;
-
     
     @FXML
     protected Text folderPath, itemsQuantity;
@@ -45,23 +39,22 @@ public class MainController implements Initializable {
     
     @FXML
     private void selectFolder() {
-        directoryChooser.setTitle("Choose a Directory...");
-        directory = directoryChooser.showDialog(null);
-        if (directory == null) 
+        controller.directoryChooser.setTitle("Choose a Directory...");
+        controller.directory = controller.directoryChooser.showDialog(null);
+        if (controller.directory == null) 
             return;
-        table.getItems().clear();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         previewButton.setText("Preview");
         previewActive = false;
-        listController.updateListView(false);
+        controller.updateListView(false);
     }
     
     
     @FXML 
     private void switchRecursive() {
-        listController.recursive = !listController.recursive;
-        recursiveImage.setOpacity(listController.recursive? 1f:0.5f);     
-        listController.updateListView(previewActive);
+        controller.recursive = !controller.recursive;
+        recursiveImage.setOpacity(controller.recursive? 1f:0.5f);     
+        controller.updateListView(previewActive);
     }
 
 
@@ -74,7 +67,7 @@ public class MainController implements Initializable {
             previewButton.setText("Preview");
             previewActive = false;
         }
-        listController.updateListView(previewActive);
+        controller.updateListView(previewActive);
     }
     
     
@@ -82,21 +75,21 @@ public class MainController implements Initializable {
     private void switchSpacing() {
         if (spacingOption.getText().equals("A-B")) {
             spacingOption.setText("A - B");
-            listController.isSpaceInChangeOrder = true;
+            controller.isSpaceInChangeOrder = true;
         } else {
             spacingOption.setText("A-B");
-            listController.isSpaceInChangeOrder = false;
+            controller.isSpaceInChangeOrder = false;
         }
         if (previewActive)
-            listController.updateListView(previewActive);
+            controller.updateListView(previewActive);
     }
     
     
     @FXML
     private void switchCasesOption() {
-        listController.casesOptionSelected = casesOption.getSelectionModel().getSelectedIndex(); 
+        controller.casesOptionSelected = casesOption.getSelectionModel().getSelectedIndex(); 
         if (previewActive)
-            listController.updateListView(previewActive);
+            controller.updateListView(previewActive);
     }
     
     
@@ -106,8 +99,8 @@ public class MainController implements Initializable {
             dateFilter.setText("Newer than");
         else
             dateFilter.setText("Older than");
-        listController.setDateFilter(dateFilter.getText());
-        listController.updateListView(previewActive);
+        controller.setDateFilter(dateFilter.getText());
+        controller.updateListView(previewActive);
     }
     
     
@@ -117,53 +110,31 @@ public class MainController implements Initializable {
             sizeFilter.setText("Smaller than");
         else
             sizeFilter.setText("Bigger than");
-        listController.setSizeFilter(sizeFilter.getText());
-        listController.updateListView(previewActive);
+        controller.setSizeFilter(sizeFilter.getText());
+        controller.updateListView(previewActive);
     }
     
         
     @FXML
     private void apply() {
-        if (directory != null) {
-            folderPath.setText(directory.getPath());
-            folder = new File(folderPath.getText());
-            if (folder.exists()) {
-                table.getItems().clear();
-                File[] listOfFiles = folder.listFiles();
-                ListFiles(listOfFiles, true);
-            }
-            table.setPlaceholder(new Label("Changes applied!"));
+        if (controller.directory == null) 
+            return;
+        folderPath.setText(controller.directory.getPath());
+        if (controller.directory.exists()) {
+            controller.clearFilesNumber();
+            table.setPlaceholder(new Label("Loading"));
+            controller.applyChangesToFiles(controller.directory.listFiles());
         }
+        table.setPlaceholder(new Label("Changes applied!"));
         previewButton.setText("Preview");
         previewActive = false;
-    }
-    
-    
-    public void countItemsQuantity() {
-        if (filesNumber > 0) {
-            itemsQuantity.setText(String.valueOf(filesNumber) + " Files");
-            if (foldersNumber > 0)
-                itemsQuantity.setText(itemsQuantity.getText() + ", " + String.valueOf(foldersNumber) + " Folders");
-        } else {
-            itemsQuantity.setText("No files...");   
-        }
-    }
-    
-    
-    public void ListFiles(File[] listOfFiles, boolean preview) {
-        for (File file: listOfFiles)
-            if (file.isFile())
-                file.renameTo(listController.getFilePreview(file, true));
-            else if (listController.recursive)
-                ListFiles(file.listFiles(), true);
     }
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         recursiveImage.setMouseTransparent(true);
-        listController = new ListController(this);
-        directoryChooser = new DirectoryChooser();
+        controller = new Controller(this);
         tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableModified.setCellValueFactory(new PropertyValueFactory<>("modified"));
         tableSize.setCellValueFactory(new PropertyValueFactory<>("size"));
@@ -180,10 +151,10 @@ public class MainController implements Initializable {
                     + "If this field is empty all files will be modified.")
         );
         aboutButton.setTooltip(
-            new Tooltip("Namely v1.2 \nCreated by Usbac")
+            new Tooltip("Namely v1.4 \n Created by Usbac")
         );
         recursiveButton.setTooltip(
-            new Tooltip("Recursive \nWhen active, the files in the directory's subfolders will be modified too.")
+            new Tooltip("Recursive \n When active, the files in the directory's subfolders will be modified too.")
         );
         //Load Original File view when moving between Tabs
         tabPane.getSelectionModel()
@@ -191,7 +162,7 @@ public class MainController implements Initializable {
                .addListener((ObservableValue<?extends Tab> old, Tab oldTab, Tab newTab) -> {
             previewButton.setText("Preview");
             previewActive = false;
-            listController.updateListView(previewActive);
+            controller.updateListView(previewActive);
         });
     }    
 }

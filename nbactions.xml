@@ -22,5 +22,12 @@
                 <runfx.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Dglass.disableGrab=true -jar "${project.build.directory}/${project.build.finalName}.jar"</runfx.args>
                 <jpda.listen>true</jpda.listen>
             </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-Create Installer</actionName>
+            <displayName>Create Installer</displayName>
+            <goals>
+                <goal>nbm:build-installers</goal>
+            </goals>
         </action>        
     </actions>
