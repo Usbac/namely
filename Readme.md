@@ -15,12 +15,12 @@
 </br>
 
 <p align="center">
-<img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cdd8a170938599.5bb43a6702b70.png" width="60%" height="60%"> 
+<img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/b2fd8d70938599.5bda517cd6456.png" width="60%" height="60%"> 
 </p>
 
 <p align="center">
-<img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/14c1c970938599.5bb43a670346e.png" width="49%" height="49%"> 
-<img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/4672ce70938599.5bb43a6702fce.png" width="49%" height="49%"> 
+<img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/cd34c670938599.5bda517cd69d4.png" width="49%" height="49%"> 
+<img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/219d5370938599.5bda517cd7100.png" width="49%" height="49%"> 
 </p>
 
 
@@ -44,7 +44,7 @@
 ## Download
 
 [Namely 1.4.0 - Windows](https://github.com/Usbac/Namely/releases/download/v1.4.0/Namely.1.4.0.zip) </br>
-Native bundle, no JRE required
+*Native bundle, no JRE required*
 
 
 ## Contributing
