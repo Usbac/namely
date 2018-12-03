@@ -50,12 +50,12 @@ public final class Controller {
 
 
     public void updateListView(boolean preview) {
-        if (directory != null && directory.isDirectory()) {
-            view.folderPath.setText(directory.getPath());
-            clearFilesNumber();
-            addFilesToList(directory.listFiles(), preview);
-            countItemsQuantity();
-        }
+        if (directory == null || !directory.isDirectory())
+            return;
+        view.folderPath.setText(directory.getPath());
+        clearFilesNumber();
+        addFilesToList(directory.listFiles(), preview);
+        countItemsQuantity();
     }
 
 
@@ -83,7 +83,7 @@ public final class Controller {
     public File getFilePreview(File file, boolean deleteFile) {
         String regex = view.regexInput.getText();
         int selectedTab = view.tabPane.getSelectionModel().getSelectedIndex();
-        if ((!regex.isEmpty() && FileFunctions.getNameNoExtension(file)!=null && FileFunctions.getNameNoExtension(file).matches(regex)) ||
+        if ((!regex.isEmpty() && FileFunctions.matchesRegex(file, regex)) ||
              (regex.isEmpty() && FileFunctions.getNameNoExtension(file)!=null) || selectedTab == 4)
             switch (selectedTab) {
                 case 0:
@@ -119,32 +119,36 @@ public final class Controller {
         view.itemsQuantity.setText("No files...");  
     }
 
-
-    public boolean deleteFile(File file, boolean delete) {
-        boolean fileMatchesFields = true;
-        String regex = view.regexInput.getText();
-        String fileExtension = FileFunctions.getExtension(file.getName())
-                                            .substring(1);
-        float fileSize = Float.parseFloat(FileFunctions.getSizeInKb(file));
-        long fileModified = file.lastModified();
+    
+    public boolean fileMatchesFields(String fileExtension, float fileSize, long fileModified) {
         //If file doesn't matches the indicated extension
         if (!view.extensionField.getText().isEmpty() && !view.extensionField.getText().matches(fileExtension))
-            fileMatchesFields = false;
+            return false;
         //If file doesn't matches Date filter (Older or Newer than the indicated date)
         if (view.datePicker.getValue()!=null && !view.datePicker.getValue().toString().isEmpty()) {
             if ((dateFilter == DateFilter.NEWER && fileModified < getDateInMilli(view.datePicker)) ||
                 (dateFilter == DateFilter.OLDER && fileModified > getDateInMilli(view.datePicker)))
-                fileMatchesFields = false;
+                    return false;
         }
         //If file doesn't matches Size filter (Smaller or Bigger than the indicated size)
         if (!view.sizeField.getText().isEmpty() && view.sizeField.getText().chars().allMatch(Character::isDigit)) {
             float comparativeSize = Float.parseFloat(view.sizeField.getText());
             if ((sizeFilter == SizeFilter.SMALLER && fileSize > comparativeSize) ||
                 (sizeFilter == SizeFilter.BIGGER && fileSize < comparativeSize))
-                fileMatchesFields = false;
+                    return false;
         }
-        //If file doesn't matches de Regex
-        if (!regex.isEmpty() && FileFunctions.getNameNoExtension(file)!=null && !FileFunctions.getNameNoExtension(file).matches(regex))
+        return true;
+    }
+
+    
+    public boolean deleteFile(File file, boolean delete) {
+        String regex = view.regexInput.getText();
+        String fileExtension = FileFunctions.getExtension(file.getName())
+                                            .substring(1);
+        float fileSize = Float.parseFloat(FileFunctions.getSizeInKb(file));
+        long fileModified = file.lastModified();
+        boolean fileMatchesFields = fileMatchesFields(fileExtension, fileSize, fileModified);
+        if (!regex.isEmpty() && !FileFunctions.matchesRegex(file, regex))
             fileMatchesFields = false;
 
         if (delete && fileMatchesFields)

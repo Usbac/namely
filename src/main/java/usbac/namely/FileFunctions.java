@@ -176,6 +176,17 @@ public final class FileFunctions {
     
     
     /**
+     * Returns <code>true</code> if the file name matches the regular expression, <code>false</code> otherwise
+     * @param file the file
+     * @param regex the regular expression
+     * @return <code>true</code> if the file name matches the regular expression, <code>false</code> otherwise
+     */
+    public static boolean matchesRegex(File file, String regex) {
+        return (getNameNoExtension(file) != null && getNameNoExtension(file).matches(regex));
+    }
+    
+    
+    /**
      * Returns the size of the file
      * @param file the file
      * @return the size of the file expressed in kB
