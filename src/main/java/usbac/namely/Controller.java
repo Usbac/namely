@@ -8,11 +8,17 @@ import javafx.stage.DirectoryChooser;
 
 public final class Controller {
     
+    private final View view;
+    private final SimpleDateFormat date;
+    private final String DATE_FORMAT = "MM/dd/yyyy HH:mm:ss";
+    private final String NO_FILES = "No files...";
+    private final String OLDER_MSG = "Older than";
+    private final String SMALLER_MSG = "Smaller than";
+    private final String COMMA = ", ";
+    
     DirectoryChooser directoryChooser;
     File directory;
     int foldersNumber, filesNumber;
-    private final View view;
-    private final SimpleDateFormat date;
     private DateFilter dateFilter;
     private SizeFilter sizeFilter;
     protected boolean showFile, isSpaceInChangeOrder, recursive;
@@ -31,20 +37,20 @@ public final class Controller {
 
     public Controller(View view) {
         this.view = view;
-        date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        date = new SimpleDateFormat(DATE_FORMAT);
         directoryChooser = new DirectoryChooser();
         recursive = true;
     }
 
 
     public void setDateFilter(String date) {
-        dateFilter = (date.equals("Older than"))?
+        dateFilter = (date.equals(OLDER_MSG))?
             DateFilter.OLDER : DateFilter.NEWER;
     }
 
 
     public void setSizeFilter(String size) {
-        sizeFilter = (size.equals("Smaller than"))?
+        sizeFilter = (size.equals(SMALLER_MSG))?
             SizeFilter.SMALLER : SizeFilter.BIGGER;
     }
 
@@ -83,6 +89,7 @@ public final class Controller {
     public File getFilePreview(File file, boolean deleteFile) {
         String regex = view.regexInput.getText();
         int selectedTab = view.tabPane.getSelectionModel().getSelectedIndex();
+        
         if ((!regex.isEmpty() && FileFunctions.matchesRegex(file, regex)) ||
              (regex.isEmpty() && FileFunctions.getNameNoExtension(file)!=null) || selectedTab == 4)
             switch (selectedTab) {
@@ -116,7 +123,7 @@ public final class Controller {
         view.table.getItems().clear();
         filesNumber = 0;
         foldersNumber = 0;
-        view.itemsQuantity.setText("No files...");  
+        view.itemsQuantity.setText(NO_FILES);  
     }
 
     
@@ -147,6 +154,7 @@ public final class Controller {
                                             .substring(1);
         float fileSize = Float.parseFloat(FileFunctions.getSizeInKb(file));
         long fileModified = file.lastModified();
+        
         boolean fileMatchesFields = fileMatchesFields(fileExtension, fileSize, fileModified);
         if (!regex.isEmpty() && !FileFunctions.matchesRegex(file, regex))
             fileMatchesFields = false;
@@ -169,9 +177,9 @@ public final class Controller {
         if (filesNumber > 0) {
             view.itemsQuantity.setText(String.valueOf(filesNumber) + " Files");
             if (foldersNumber > 0)
-                view.itemsQuantity.setText(view.itemsQuantity.getText() + ", " + String.valueOf(foldersNumber) + " Folders");
+                view.itemsQuantity.setText(view.itemsQuantity.getText() + COMMA + String.valueOf(foldersNumber) + " Folders");
         } else {
-            view.itemsQuantity.setText("No files...");   
+            view.itemsQuantity.setText(NO_FILES);   
         }
     }
 

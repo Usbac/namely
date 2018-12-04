@@ -12,6 +12,21 @@ import javafx.scene.text.Text;
 
 public final class View implements Initializable {
     
+    private final String PREVIEW = "Preview";
+    private final String ORIGINAL = "Original";
+    private final String NO_FILES = "No files";
+    private final String DIRECTORY = "Choose a Directory...";
+    private final String SPACING = "A - B";
+    private final String NO_SPACING = "A-B";
+    private final String OLDER_MSG = "Older than";
+    private final String NEWER_MSG = "Newer than";
+    private final String BIGGER_MSG = "Bigger than";
+    private final String SMALLER_MSG = "Smaller than";
+    private final String LOWERCASE = "All Lowercase";
+    private final String UPPERCASE = "All Uppercase";
+    private final String INVERSECASE = "Inverse";
+    private final String SUCCESS = "Changes applied!";
+    
     Controller controller;
     boolean previewActive;
     
@@ -39,12 +54,12 @@ public final class View implements Initializable {
     
     @FXML
     private void selectFolder() {
-        controller.directoryChooser.setTitle("Choose a Directory...");
+        controller.directoryChooser.setTitle(DIRECTORY);
         controller.directory = controller.directoryChooser.showDialog(null);
         if (controller.directory == null) 
             return;
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        previewButton.setText("Preview");
+        previewButton.setText(PREVIEW);
         previewActive = false;
         controller.updateListView(false);
     }
@@ -60,11 +75,11 @@ public final class View implements Initializable {
 
     @FXML
     private void switchPreview() {
-        if (previewButton.getText().equals("Preview")) {
-            previewButton.setText("Original");
+        if (previewButton.getText().equals(PREVIEW)) {
+            previewButton.setText(ORIGINAL);
             previewActive = true;
         } else {
-            previewButton.setText("Preview");
+            previewButton.setText(PREVIEW);
             previewActive = false;
         }
         controller.updateListView(previewActive);
@@ -73,11 +88,11 @@ public final class View implements Initializable {
     
     @FXML
     private void switchSpacing() {
-        if (spacingOption.getText().equals("A-B")) {
-            spacingOption.setText("A - B");
+        if (spacingOption.getText().equals(NO_SPACING)) {
+            spacingOption.setText(SPACING);
             controller.isSpaceInChangeOrder = true;
         } else {
-            spacingOption.setText("A-B");
+            spacingOption.setText(NO_SPACING);
             controller.isSpaceInChangeOrder = false;
         }
         if (previewActive)
@@ -95,10 +110,7 @@ public final class View implements Initializable {
     
     @FXML
     private void switchDateFilter() {
-        if (dateFilter.getText().equals("Older than"))
-            dateFilter.setText("Newer than");
-        else
-            dateFilter.setText("Older than");
+        dateFilter.setText(dateFilter.getText().equals(OLDER_MSG)? NEWER_MSG:OLDER_MSG);
         controller.setDateFilter(dateFilter.getText());
         controller.updateListView(previewActive);
     }
@@ -106,10 +118,10 @@ public final class View implements Initializable {
     
     @FXML
     private void switchSizeFilter() {
-        if (sizeFilter.getText().equals("Bigger than"))
-            sizeFilter.setText("Smaller than");
+        if (sizeFilter.getText().equals(BIGGER_MSG))
+            sizeFilter.setText(SMALLER_MSG);
         else
-            sizeFilter.setText("Bigger than");
+            sizeFilter.setText(BIGGER_MSG);
         controller.setSizeFilter(sizeFilter.getText());
         controller.updateListView(previewActive);
     }
@@ -122,11 +134,10 @@ public final class View implements Initializable {
         folderPath.setText(controller.directory.getPath());
         if (controller.directory.exists()) {
             controller.clearFilesNumber();
-            table.setPlaceholder(new Label("Loading"));
             controller.applyChangesToFiles(controller.directory.listFiles());
         }
-        table.setPlaceholder(new Label("Changes applied!"));
-        previewButton.setText("Preview");
+        table.setPlaceholder(new Label(SUCCESS));
+        previewButton.setText(PREVIEW);
         previewActive = false;
     }
     
@@ -135,17 +146,21 @@ public final class View implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         recursiveImage.setMouseTransparent(true);
         controller = new Controller(this);
+        
         tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableModified.setCellValueFactory(new PropertyValueFactory<>("modified"));
         tableSize.setCellValueFactory(new PropertyValueFactory<>("size"));
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        table.setPlaceholder(new Label("No files"));
-        casesOption.getItems().add("All Lowercase");
-        casesOption.getItems().add("All Uppercase");
-        casesOption.getItems().add("Inverse");
+        table.setPlaceholder(new Label(NO_FILES));
+        
+        casesOption.getItems().add(LOWERCASE);
+        casesOption.getItems().add(UPPERCASE);
+        casesOption.getItems().add(INVERSECASE);
         casesOption.getSelectionModel().selectFirst();
+        
         switchDateFilter();
         switchSizeFilter();
+        
         regexInfo.setTooltip(
             new Tooltip("If the file's name matches the regex modify it, otherwise don't. \n"
                     + "If this field is empty all files will be modified.")
@@ -156,11 +171,12 @@ public final class View implements Initializable {
         recursiveButton.setTooltip(
             new Tooltip("Recursive \n When active, the files in the directory's subfolders will be modified too.")
         );
+        
         //Load Original File view when moving between Tabs
         tabPane.getSelectionModel()
                .selectedItemProperty()
                .addListener((ObservableValue<?extends Tab> old, Tab oldTab, Tab newTab) -> {
-            previewButton.setText("Preview");
+            previewButton.setText(PREVIEW);
             previewActive = false;
             controller.updateListView(previewActive);
         });

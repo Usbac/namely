@@ -10,17 +10,22 @@ import javafx.stage.Stage;
 
 public class Namely extends Application {
     
+    private final String TITLE = "Namely";
+    private final int WIDTH = 555;
+    private final int HEIGHT = 520;
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/styles.css");
+        
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
-        stage.setWidth(555);
-        stage.setHeight(520);
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
-        stage.setTitle("Namely");
+        stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
     }

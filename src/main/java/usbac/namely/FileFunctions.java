@@ -4,6 +4,8 @@ import java.io.File;
 
 public final class FileFunctions {
     
+    private final static float KB = 1024f;
+    
     /**
      * Returns the number of matches with the indicated string in the file name
      * @param file the file
@@ -45,8 +47,10 @@ public final class FileFunctions {
     public static String getNameNoExtension(File file) {
         String name = file.getName();
         String extension = FileFunctions.getExtension(name);
+        
         if (name.length() > extension.length())
             return name.substring(0, name.length()-extension.length());
+        
         return name;
     }
     
@@ -61,9 +65,11 @@ public final class FileFunctions {
         String invertedName = new StringBuffer(getNameNoExtension(file))
                                               .reverse()
                                               .toString();
+        
         //If the file doesn't have an extension, clear it
         if (!hasExtension(file)) 
             extension = "";
+        
         return new File(file.getParent(), invertedName + extension);
     }
     
@@ -99,11 +105,10 @@ public final class FileFunctions {
                              .substring(0, separatorIndex)
                              .trim();
         String partTwo = file.getName()
-                             .substring(separatorIndex+1, length)
+                             .substring(separatorIndex + 1, length)
                              .trim();
-        String space = spacing? " ":"";
         
-        String newName = partTwo + space + String.valueOf(separator) + space + partOne + extension;
+        String newName = partTwo + (spacing? " ":"") + String.valueOf(separator) + (spacing? " ":"") + partOne + extension;
         return new File(file.getParent(), newName);
     }
     
@@ -119,10 +124,12 @@ public final class FileFunctions {
         String extension = getExtension(file.getName());
         String newName = file.getName()
                              .replace(original, replacement);
+        
         if (FileFunctions.hasExtension(file))
             newName = newName.substring(0, newName.length() - extension.length());
         else
             extension = "";
+        
         return new File(file.getParent(), newName + extension);
     }
     
@@ -136,13 +143,9 @@ public final class FileFunctions {
     public static File cases(File file, int option) {
         String extension = getExtension(file.getName()),
                newName = file.getName();
-        int length;
-        if (hasExtension(file)) {
-            length = getLengthNoExtension(file);        
-        } else {
-            length = file.getName().length();
-            extension = "";   
-        }
+        int length = hasExtension(file)? getLengthNoExtension(file):file.getName().length();
+        if (!hasExtension(file))
+            extension = "";
         
         switch (option) {
             //All Lowercase
@@ -192,6 +195,6 @@ public final class FileFunctions {
      * @return the size of the file expressed in kB
      */
     public static String getSizeInKb(File file) {
-        return String.format("%.2f", file.length()/1024f);
+        return String.format("%.2f", file.length()/KB);
     }
 }
