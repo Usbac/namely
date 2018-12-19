@@ -26,13 +26,13 @@
 
 ## Features
 
-* Easy to use and Modern interface.
-* Preview the changes before applying them.
+* Easy to use with a Modern interface.
+* Preview your changes before applying them.
 * Multiple options for modifying your file's name.
-* Ability to filter which files will be modified, based in a Regular Expression.
+* Ability to filter which files will be modified based in a Regular Expression.
 * Massive changes under the indicated directory or folder.
-* Option to modify files in the directory's subfolders.
-* Cross-platform with support for Windows, Mac OS and Linux.
+* Option to modify files in the directory's subfolders too.
+* Cross-platform, with support for Windows, Mac OS and Linux.
 * And more...
 
 
