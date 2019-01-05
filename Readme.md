@@ -23,20 +23,6 @@
 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/219d5370938599.5bda517cd7100.png" width="49%" height="49%"> 
 </p>
 
-## Build and Run
-```bash
-
-mvn clean package spring-boot:repackage
-
-```
-This will create executable `jar` file in the `target` directory. Then run
-
-```bash
-
-java -jar target/Namely-1.2.jar
-
-```
-
 ## Features
 
 * Easy to use with a Modern interface.

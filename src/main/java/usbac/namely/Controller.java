@@ -1,186 +1,186 @@
 package usbac.namely;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.time.*;
-import javafx.scene.control.DatePicker;
-import javafx.stage.DirectoryChooser;
+import java.net.URL;
+import java.util.ResourceBundle; 
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
-public final class Controller {
+public final class Controller implements Initializable {
     
-    private final View view;
-    private final SimpleDateFormat date;
-    private final String DATE_FORMAT = "MM/dd/yyyy HH:mm:ss";
-    private final String NO_FILES = "No files...";
+    private final String PREVIEW = "Preview";
+    private final String ORIGINAL = "Original";
+    private final String NO_FILES = "No files";
+    private final String DIRECTORY = "Choose a Directory...";
+    private final String SPACING = "A - B";
+    private final String NO_SPACING = "A-B";
     private final String OLDER_MSG = "Older than";
+    private final String NEWER_MSG = "Newer than";
+    private final String BIGGER_MSG = "Bigger than";
     private final String SMALLER_MSG = "Smaller than";
-    private final String COMMA = ", ";
+    private final String LOWERCASE = "All Lowercase";
+    private final String UPPERCASE = "All Uppercase";
+    private final String INVERSECASE = "Inverse";
+    private final String SUCCESS = "Changes applied!";
     
-    DirectoryChooser directoryChooser;
-    File directory;
-    int foldersNumber, filesNumber;
-    private DateFilter dateFilter;
-    private SizeFilter sizeFilter;
-    protected boolean showFile, isSpaceInChangeOrder, recursive;
-    protected int casesOptionSelected;
+    Model model;
+    boolean previewActive;
+    
+    @FXML
+    protected Text folderPath, itemsQuantity;
+    @FXML
+    protected TextField separator, renameOriginal, renameReplacement, extensionField, sizeField, regexInput;
+    @FXML
+    protected TableView table;
+    @FXML
+    protected TabPane tabPane;
+    @FXML
+    protected DatePicker datePicker;
+    @FXML
+    private TableColumn tableName, tableModified, tableSize;
+    @FXML
+    private ToggleButton previewButton;
+    @FXML
+    private Button recursiveButton, spacingOption, regexInfo, aboutButton, dateFilter, sizeFilter;
+    @FXML
+    private ImageView recursiveImage;
+    @FXML
+    private ComboBox casesOption;
 
-    private enum DateFilter {
-        OLDER,
-        NEWER
-    }
-
-    private enum SizeFilter {
-        SMALLER,
-        BIGGER
-    }
-
-
-    public Controller(View view) {
-        this.view = view;
-        date = new SimpleDateFormat(DATE_FORMAT);
-        directoryChooser = new DirectoryChooser();
-        recursive = true;
-    }
-
-
-    public void setDateFilter(String date) {
-        dateFilter = (date.equals(OLDER_MSG))?
-            DateFilter.OLDER : DateFilter.NEWER;
-    }
-
-
-    public void setSizeFilter(String size) {
-        sizeFilter = (size.equals(SMALLER_MSG))?
-            SizeFilter.SMALLER : SizeFilter.BIGGER;
-    }
-
-
-    public void updateListView(boolean preview) {
-        if (directory == null || !directory.isDirectory())
+    
+    @FXML
+    private void selectFolder() {
+        model.directoryChooser.setTitle(DIRECTORY);
+        model.directory = model.directoryChooser.showDialog(null);
+        if (model.directory == null) 
             return;
-        view.folderPath.setText(directory.getPath());
-        clearFilesNumber();
-        addFilesToList(directory.listFiles(), preview);
-        countItemsQuantity();
-    }
-
-
-    public void addFilesToList(File[] listOfFiles, boolean preview) {
-        for (File file: listOfFiles) {
-            if (file.isFile()) {
-                showFile = true;
-                String name = preview? getFilePreview(file, false).getName():file.getName();
-                SingleFile newFile = new SingleFile(name,
-                                                    date.format(file.lastModified()),
-                                                    FileFunctions.getSizeInKb(file)+" kB");
-                if (showFile) {
-                    view.table.getItems().add(newFile);
-                    filesNumber++;
-                }
-            } else if (recursive) {
-                foldersNumber++;
-                if (file.listFiles() != null)
-                    addFilesToList(file.listFiles(), preview);
-            }
-        }
-    }
-
-
-    public File getFilePreview(File file, boolean deleteFile) {
-        String regex = view.regexInput.getText();
-        int selectedTab = view.tabPane.getSelectionModel().getSelectedIndex();
-        
-        if ((!regex.isEmpty() && FileFunctions.matchesRegex(file, regex)) ||
-             (regex.isEmpty() && FileFunctions.getNameNoExtension(file)!=null) || selectedTab == 4)
-            switch (selectedTab) {
-                case 0:
-                    return FileFunctions.inverse(file);
-                case 1:
-                    char charSeparator = (view.separator.getText().length() > 0)?
-                            view.separator.getText().charAt(0): ' ';
-                    return FileFunctions.changeOrder(file, charSeparator, isSpaceInChangeOrder);
-                case 2:
-                    return FileFunctions.cases(file, casesOptionSelected);
-                case 3:
-                    return FileFunctions.replace(file, view.renameOriginal.getText(), view.renameReplacement.getText());
-                case 4:
-                    showFile = deleteFile(file, deleteFile);
-            }
-        return file;
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        previewButton.setText(PREVIEW);
+        previewActive = false;
+        model.updateListView(false);
     }
     
     
-    public void applyChangesToFiles(File[] listOfFiles) {
-        for (File file: listOfFiles)
-            if (file.isFile())
-                file.renameTo(getFilePreview(file, true));
-            else if (recursive)
-                applyChangesToFiles(file.listFiles());
-    }
-    
-    
-    public void clearFilesNumber() {
-        view.table.getItems().clear();
-        filesNumber = 0;
-        foldersNumber = 0;
-        view.itemsQuantity.setText(NO_FILES);  
-    }
-
-    
-    public boolean fileMatchesFields(String fileExtension, float fileSize, long fileModified) {
-        //If file doesn't matches the indicated extension
-        if (!view.extensionField.getText().isEmpty() && !view.extensionField.getText().matches(fileExtension))
-            return false;
-        //If file doesn't matches Date filter (Older or Newer than the indicated date)
-        if (view.datePicker.getValue()!=null && !view.datePicker.getValue().toString().isEmpty()) {
-            if ((dateFilter == DateFilter.NEWER && fileModified < getDateInMilli(view.datePicker)) ||
-                (dateFilter == DateFilter.OLDER && fileModified > getDateInMilli(view.datePicker)))
-                    return false;
-        }
-        //If file doesn't matches Size filter (Smaller or Bigger than the indicated size)
-        if (!view.sizeField.getText().isEmpty() && view.sizeField.getText().chars().allMatch(Character::isDigit)) {
-            float comparativeSize = Float.parseFloat(view.sizeField.getText());
-            if ((sizeFilter == SizeFilter.SMALLER && fileSize > comparativeSize) ||
-                (sizeFilter == SizeFilter.BIGGER && fileSize < comparativeSize))
-                    return false;
-        }
-        return true;
-    }
-
-    
-    public boolean deleteFile(File file, boolean delete) {
-        String regex = view.regexInput.getText();
-        String fileExtension = FileFunctions.getExtension(file.getName())
-                                            .substring(1);
-        float fileSize = Float.parseFloat(FileFunctions.getSizeInKb(file));
-        long fileModified = file.lastModified();
-        
-        boolean fileMatchesFields = fileMatchesFields(fileExtension, fileSize, fileModified);
-        if (!regex.isEmpty() && !FileFunctions.matchesRegex(file, regex))
-            fileMatchesFields = false;
-
-        if (delete && fileMatchesFields)
-            file.delete();
-        return fileMatchesFields;
+    @FXML 
+    private void switchRecursive() {
+        model.recursive = !model.recursive;
+        recursiveImage.setOpacity(model.recursive? 1f:0.5f);     
+        model.updateListView(previewActive);
     }
 
 
-    public long getDateInMilli(DatePicker d) {
-        return LocalDate.of(d.getValue().getYear(), d.getValue().getMonth(), d.getValue().getDayOfMonth())
-                        .atStartOfDay(ZoneOffset.UTC)
-                        .toInstant()
-                        .toEpochMilli();
-    }
-    
-        
-    public void countItemsQuantity() {
-        if (filesNumber > 0) {
-            view.itemsQuantity.setText(String.valueOf(filesNumber) + " Files");
-            if (foldersNumber > 0)
-                view.itemsQuantity.setText(view.itemsQuantity.getText() + COMMA + String.valueOf(foldersNumber) + " Folders");
+    @FXML
+    private void switchPreview() {
+        if (previewButton.getText().equals(PREVIEW)) {
+            previewButton.setText(ORIGINAL);
+            previewActive = true;
         } else {
-            view.itemsQuantity.setText(NO_FILES);   
+            previewButton.setText(PREVIEW);
+            previewActive = false;
         }
+        model.updateListView(previewActive);
     }
-
+    
+    
+    @FXML
+    private void switchSpacing() {
+        if (spacingOption.getText().equals(NO_SPACING)) {
+            spacingOption.setText(SPACING);
+            model.isSpaceInChangeOrder = true;
+        } else {
+            spacingOption.setText(NO_SPACING);
+            model.isSpaceInChangeOrder = false;
+        }
+        if (previewActive)
+            model.updateListView(previewActive);
+    }
+    
+    
+    @FXML
+    private void switchCasesOption() {
+        model.casesOptionSelected = casesOption.getSelectionModel().getSelectedIndex(); 
+        if (previewActive)
+            model.updateListView(previewActive);
+    }
+    
+    
+    @FXML
+    private void switchDateFilter() {
+        dateFilter.setText(dateFilter.getText().equals(OLDER_MSG)? NEWER_MSG:OLDER_MSG);
+        model.setDateFilter(dateFilter.getText());
+        model.updateListView(previewActive);
+    }
+    
+    
+    @FXML
+    private void switchSizeFilter() {
+        if (sizeFilter.getText().equals(BIGGER_MSG))
+            sizeFilter.setText(SMALLER_MSG);
+        else
+            sizeFilter.setText(BIGGER_MSG);
+        model.setSizeFilter(sizeFilter.getText());
+        model.updateListView(previewActive);
+    }
+    
+        
+    @FXML
+    private void apply() {
+        if (model.directory == null) 
+            return;
+        
+        folderPath.setText(model.directory.getPath());
+        if (model.directory.exists()) {
+            model.clearFilesNumber();
+            model.applyChangesToFiles();
+        }
+        
+        table.setPlaceholder(new Label(SUCCESS));
+        previewButton.setText(PREVIEW);
+        previewActive = false;
+    }
+    
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        recursiveImage.setMouseTransparent(true);
+        model = new Model(this);
+        
+        tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableModified.setCellValueFactory(new PropertyValueFactory<>("modified"));
+        tableSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setPlaceholder(new Label(NO_FILES));
+        
+        casesOption.getItems().add(LOWERCASE);
+        casesOption.getItems().add(UPPERCASE);
+        casesOption.getItems().add(INVERSECASE);
+        casesOption.getSelectionModel().selectFirst();
+        
+        switchDateFilter();
+        switchSizeFilter();
+        
+        regexInfo.setTooltip(
+            new Tooltip("If the file's name matches the regex modify it, otherwise don't. \n"
+                    + "If this field is empty all files will be modified.")
+        );
+        aboutButton.setTooltip(
+            new Tooltip("Namely v1.4 \n Created by Usbac")
+        );
+        recursiveButton.setTooltip(
+            new Tooltip("Recursive \n When active, the files in the directory's subfolders will be modified too.")
+        );
+        
+        //Load Original File view when moving between Tabs
+        tabPane.getSelectionModel()
+               .selectedItemProperty()
+               .addListener((ObservableValue<?extends Tab> old, Tab oldTab, Tab newTab) -> {
+            previewButton.setText(PREVIEW);
+            previewActive = false;
+            model.updateListView(previewActive);
+        });
+    }    
 }

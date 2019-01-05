@@ -141,11 +141,9 @@ public final class FileFunctions {
      * @return the file with the letter case modified
      */
     public static File cases(File file, int option) {
-        String extension = getExtension(file.getName()),
+        String extension = hasExtension(file)? getExtension(file.getName()):"",
                newName = file.getName();
         int length = hasExtension(file)? getLengthNoExtension(file):file.getName().length();
-        if (!hasExtension(file))
-            extension = "";
         
         switch (option) {
             //All Lowercase
