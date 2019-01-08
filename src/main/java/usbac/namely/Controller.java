@@ -24,6 +24,8 @@ public final class Controller implements Initializable {
     private final String SMALLER_MSG = "Smaller than";
     private final String LOWERCASE = "All Lowercase";
     private final String UPPERCASE = "All Uppercase";
+    private final String ADD_START = "Start";
+    private final String ADD_END = "End";
     private final String INVERSECASE = "Inverse";
     private final String SUCCESS = "Changes applied!";
     
@@ -33,7 +35,7 @@ public final class Controller implements Initializable {
     @FXML
     protected Text folderPath, itemsQuantity;
     @FXML
-    protected TextField separator, renameOriginal, renameReplacement, extensionField, sizeField, regexInput;
+    protected TextField separator, renameOriginal, renameReplacement, extensionField, sizeField, regexInput, addText;
     @FXML
     protected TableView table;
     @FXML
@@ -49,7 +51,7 @@ public final class Controller implements Initializable {
     @FXML
     private ImageView recursiveImage;
     @FXML
-    private ComboBox casesOption;
+    private ComboBox addOption, casesOption;
 
     
     @FXML
@@ -88,13 +90,18 @@ public final class Controller implements Initializable {
     
     @FXML
     private void switchSpacing() {
-        if (spacingOption.getText().equals(NO_SPACING)) {
-            spacingOption.setText(SPACING);
-            model.isSpaceInChangeOrder = true;
-        } else {
-            spacingOption.setText(NO_SPACING);
-            model.isSpaceInChangeOrder = false;
-        }
+        model.isSpaceInChangeOrder = spacingOption.getText().equals(NO_SPACING);
+        spacingOption.setText(spacingOption.getText().equals(NO_SPACING)? SPACING:NO_SPACING);
+
+        if (previewActive)
+            model.updateListView(previewActive);
+    }
+    
+    
+    @FXML
+    private void switchAddOption() {
+        model.addOptionSelected = addOption.getSelectionModel().getSelectedIndex() == 0; 
+        
         if (previewActive)
             model.updateListView(previewActive);
     }
@@ -103,6 +110,7 @@ public final class Controller implements Initializable {
     @FXML
     private void switchCasesOption() {
         model.casesOptionSelected = casesOption.getSelectionModel().getSelectedIndex(); 
+        
         if (previewActive)
             model.updateListView(previewActive);
     }
@@ -118,10 +126,8 @@ public final class Controller implements Initializable {
     
     @FXML
     private void switchSizeFilter() {
-        if (sizeFilter.getText().equals(BIGGER_MSG))
-            sizeFilter.setText(SMALLER_MSG);
-        else
-            sizeFilter.setText(BIGGER_MSG);
+        sizeFilter.setText(sizeFilter.getText().equals(BIGGER_MSG)? SMALLER_MSG:BIGGER_MSG);
+        
         model.setSizeFilter(sizeFilter.getText());
         model.updateListView(previewActive);
     }
@@ -144,35 +150,74 @@ public final class Controller implements Initializable {
     }
     
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        recursiveImage.setMouseTransparent(true);
-        model = new Model(this);
-        
+    public String getRegex() {
+        return regexInput.getText();
+    }
+    
+    
+    public String getSeparator() {
+        return separator.getText();
+    }
+    
+    
+    public int getTab() {
+        return tabPane.getSelectionModel().getSelectedIndex();
+    }
+    
+    
+    public void initializeTable() {
         tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableModified.setCellValueFactory(new PropertyValueFactory<>("modified"));
         tableSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPlaceholder(new Label(NO_FILES));
-        
-        casesOption.getItems().add(LOWERCASE);
-        casesOption.getItems().add(UPPERCASE);
-        casesOption.getItems().add(INVERSECASE);
-        casesOption.getSelectionModel().selectFirst();
-        
-        switchDateFilter();
-        switchSizeFilter();
-        
+    }
+    
+    
+    public void initializeToolTips() {
         regexInfo.setTooltip(
             new Tooltip("If the file's name matches the regex modify it, otherwise don't. \n"
                     + "If this field is empty all files will be modified.")
         );
         aboutButton.setTooltip(
-            new Tooltip("Namely v1.4 \n Created by Usbac")
+            new Tooltip("Namely v1.5 \n Created by Usbac")
         );
         recursiveButton.setTooltip(
             new Tooltip("Recursive \n When active, the files in the directory's subfolders will be modified too.")
         );
+    }
+    
+    
+    public void initializeCasesOption() {
+        casesOption.getItems().add(LOWERCASE);
+        casesOption.getItems().add(UPPERCASE);
+        casesOption.getItems().add(INVERSECASE);
+        casesOption.getSelectionModel().selectFirst();
+    }
+       
+    
+    public void initializeAddOption() {
+        addOption.getItems().add(ADD_START);
+        addOption.getItems().add(ADD_END);
+        addOption.getSelectionModel().selectFirst();
+    }
+    
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        model = new Model(this);
+        recursiveImage.setMouseTransparent(true);
+        
+        initializeTable();
+        
+        initializeCasesOption();
+        initializeAddOption();
+
+        switchDateFilter();
+        switchSizeFilter();
+        
+        initializeToolTips();
         
         //Load Original File view when moving between Tabs
         tabPane.getSelectionModel()

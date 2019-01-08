@@ -4,7 +4,7 @@
 
     <groupId>usbac</groupId>
     <artifactId>Namely</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
     <name>Namely</name>
 
@@ -17,7 +17,7 @@
 
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Your Organisation</name>
+        <name>Usbac</name>
     </organization>
 
     <dependencies>
@@ -80,9 +80,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
             </plugin>
 
             <plugin>

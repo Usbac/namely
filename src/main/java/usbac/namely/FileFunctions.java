@@ -4,6 +4,7 @@ import java.io.File;
 
 public final class FileFunctions {
     
+    private final static String EMPTY = "";
     private final static float KB = 1024f;
     
     /**
@@ -13,7 +14,7 @@ public final class FileFunctions {
      * @return the number of matches that are in the file name
      */
     public static int numberOfMatches(File file, String string) {
-        return file.getName().length() - file.getName().replace(string, "").length();
+        return file.getName().length() - file.getName().replace(string, EMPTY).length();
     }
     
     
@@ -61,14 +62,10 @@ public final class FileFunctions {
      * @return the file with the name inverted
      */
     public static File inverse(File file) {
-        String extension = getExtension(file.getName());
+        String extension = hasExtension(file)? getExtension(file.getName()):EMPTY;
         String invertedName = new StringBuffer(getNameNoExtension(file))
                                               .reverse()
                                               .toString();
-        
-        //If the file doesn't have an extension, clear it
-        if (!hasExtension(file)) 
-            extension = "";
         
         return new File(file.getParent(), invertedName + extension);
     }
@@ -88,16 +85,10 @@ public final class FileFunctions {
         if (totalSeparators != 1 || separator == '.')
             return new File(file.getParent(), file.getName());
         
-        String extension = getExtension(file.getName());
+        String extension = hasExtension(file)? getExtension(file.getName()):EMPTY;
         
         //Adjust the file name length and delete the extension if the file doesn't have an extension
-        int length;
-        if (hasExtension(file))
-            length = getLengthNoExtension(file);        
-        else {
-            length = file.getName().length();
-            extension = "";
-        }
+        int length = hasExtension(file)? getLengthNoExtension(file):file.getName().length();
         
         int separatorIndex = file.getName().indexOf(separator);
         //Get the substrings and delete extra whitespaces at the beginning or ending of them
@@ -108,8 +99,23 @@ public final class FileFunctions {
                              .substring(separatorIndex + 1, length)
                              .trim();
         
-        String newName = partTwo + (spacing? " ":"") + String.valueOf(separator) + (spacing? " ":"") + partOne + extension;
+        String newName = partTwo + (spacing? " ":EMPTY) + String.valueOf(separator) + (spacing? " ":EMPTY) + partOne + extension;
         return new File(file.getParent(), newName);
+    }
+    
+    
+    /**
+     * Add text at the start or end of a file name
+     * @param file the file
+     * @param text the text to add
+     * @param begin add the text at the begin or end of the file name
+     * @return the file with the text added
+     */
+    public static File add(File file, String text, boolean begin) {
+        String extension = hasExtension(file)? getExtension(file.getName()):EMPTY;
+        String newName = begin? text + getNameNoExtension(file):getNameNoExtension(file) + text;
+        
+        return new File(file.getParent(), newName + extension);
     }
     
     
@@ -121,14 +127,12 @@ public final class FileFunctions {
      * @return the file with the indicated text replaced
      */
     public static File replace(File file, String original, String replacement) {
-        String extension = getExtension(file.getName());
+        String extension = hasExtension(file)? getExtension(file.getName()):EMPTY;
         String newName = file.getName()
                              .replace(original, replacement);
         
-        if (FileFunctions.hasExtension(file))
+        if (hasExtension(file))
             newName = newName.substring(0, newName.length() - extension.length());
-        else
-            extension = "";
         
         return new File(file.getParent(), newName + extension);
     }
@@ -141,7 +145,7 @@ public final class FileFunctions {
      * @return the file with the letter case modified
      */
     public static File cases(File file, int option) {
-        String extension = hasExtension(file)? getExtension(file.getName()):"",
+        String extension = hasExtension(file)? getExtension(file.getName()):EMPTY,
                newName = file.getName();
         int length = hasExtension(file)? getLengthNoExtension(file):file.getName().length();
         

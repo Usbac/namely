@@ -15,14 +15,17 @@ public final class Model {
     private final String OLDER_MSG = "Older than";
     private final String SMALLER_MSG = "Smaller than";
     private final String COMMA = ", ";
+    private final String FILES = " Files";
+    private final String FOLDERS = " Folders";
     
+    private DateFilter dateFilter;
+    private SizeFilter sizeFilter;
+    boolean showFile, isSpaceInChangeOrder, recursive;
+    int casesOptionSelected;
+    boolean addOptionSelected;
     DirectoryChooser directoryChooser;
     File directory;
     int foldersNumber, filesNumber;
-    private DateFilter dateFilter;
-    private SizeFilter sizeFilter;
-    protected boolean showFile, isSpaceInChangeOrder, recursive;
-    protected int casesOptionSelected;
 
     private enum DateFilter {
         OLDER,
@@ -35,8 +38,8 @@ public final class Model {
     }
 
 
-    public Model(Controller controller) {
-        this.controller = controller;
+    public Model(Controller c) {
+        this.controller = c;
         date = new SimpleDateFormat(DATE_FORMAT);
         directoryChooser = new DirectoryChooser();
         recursive = true;
@@ -68,11 +71,13 @@ public final class Model {
     public void addFilesToList(File[] listOfFiles, boolean preview) {
         for (File file: listOfFiles) {
             if (file.isFile()) {
-                showFile = true;
-                String name = preview? getFilePreview(file, false).getName():file.getName();
-                SingleFile newFile = new SingleFile(name,
+                if (!preview) {
+                    showFile = true;
+                }
+                
+                SingleFile newFile = new SingleFile(getFileName(file, preview),
                                                     date.format(file.lastModified()),
-                                                    FileFunctions.getSizeInKb(file)+" kB");
+                                                    FileFunctions.getSizeInKb(file) + " kB");
                 if (showFile) {
                     controller.table.getItems().add(newFile);
                     filesNumber++;
@@ -84,28 +89,35 @@ public final class Model {
             }
         }
     }
+    
+    
+    public String getFileName(File file, boolean preview) {
+        return preview? getFilePreview(file, false).getName():file.getName();
+    }
 
 
     public File getFilePreview(File file, boolean deleteFile) {
-        String regex = controller.regexInput.getText();
-        int selectedTab = controller.tabPane.getSelectionModel().getSelectedIndex();
-        
-        if ((!regex.isEmpty() && FileFunctions.matchesRegex(file, regex)) ||
-             (regex.isEmpty() && FileFunctions.getNameNoExtension(file)!=null) || selectedTab == 4)
-            switch (selectedTab) {
+        showFile = false;
+        if (FileFunctions.matchesRegex(file, controller.getRegex()) ||
+             (controller.getRegex().isEmpty() && FileFunctions.getNameNoExtension(file)!=null) || controller.getTab() == 4) {
+            showFile = true;
+            switch (controller.getTab()) {
                 case 0:
-                    return FileFunctions.inverse(file);
+                    return FileFunctions.add(file, controller.addText.getText(), addOptionSelected);
                 case 1:
-                    char charSeparator = (controller.separator.getText().length() > 0)?
-                            controller.separator.getText().charAt(0): ' ';
-                    return FileFunctions.changeOrder(file, charSeparator, isSpaceInChangeOrder);
+                    return FileFunctions.inverse(file);
                 case 2:
-                    return FileFunctions.cases(file, casesOptionSelected);
+                    char charSeparator = (controller.getSeparator().length() > 0)?
+                            controller.getSeparator().charAt(0): ' ';
+                    return FileFunctions.changeOrder(file, charSeparator, isSpaceInChangeOrder);
                 case 3:
-                    return FileFunctions.replace(file, controller.renameOriginal.getText(), controller.renameReplacement.getText());
+                    return FileFunctions.cases(file, casesOptionSelected);
                 case 4:
+                    return FileFunctions.replace(file, controller.renameOriginal.getText(), controller.renameReplacement.getText());
+                case 5:
                     showFile = deleteFile(file, deleteFile);
             }
+        }
         return file;
     }
     
@@ -126,9 +138,9 @@ public final class Model {
     
     public void clearFilesNumber() {
         controller.table.getItems().clear();
+        controller.itemsQuantity.setText(NO_FILES);  
         filesNumber = 0;
         foldersNumber = 0;
-        controller.itemsQuantity.setText(NO_FILES);  
     }
 
     
@@ -136,12 +148,14 @@ public final class Model {
         //If file doesn't matches the indicated extension
         if (!controller.extensionField.getText().isEmpty() && !controller.extensionField.getText().matches(fileExtension))
             return false;
+        
         //If file doesn't matches Date filter (Older or Newer than the indicated date)
         if (controller.datePicker.getValue()!=null && !controller.datePicker.getValue().toString().isEmpty()) {
             if ((dateFilter == DateFilter.NEWER && fileModified < getDateInMilli(controller.datePicker)) ||
                 (dateFilter == DateFilter.OLDER && fileModified > getDateInMilli(controller.datePicker)))
                     return false;
         }
+        
         //If file doesn't matches Size filter (Smaller or Bigger than the indicated size)
         if (!controller.sizeField.getText().isEmpty() && controller.sizeField.getText().chars().allMatch(Character::isDigit)) {
             float comparativeSize = Float.parseFloat(controller.sizeField.getText());
@@ -154,14 +168,13 @@ public final class Model {
 
     
     public boolean deleteFile(File file, boolean delete) {
-        String regex = controller.regexInput.getText();
         String fileExtension = FileFunctions.getExtension(file.getName())
                                             .substring(1);
         float fileSize = Float.parseFloat(FileFunctions.getSizeInKb(file));
         long fileModified = file.lastModified();
         
         boolean fileMatchesFields = fileMatchesFields(fileExtension, fileSize, fileModified);
-        if (!regex.isEmpty() && !FileFunctions.matchesRegex(file, regex))
+        if (!FileFunctions.matchesRegex(file, controller.getRegex()))
             fileMatchesFields = false;
 
         if (delete && fileMatchesFields)
@@ -176,13 +189,13 @@ public final class Model {
                         .toInstant()
                         .toEpochMilli();
     }
-    
-        
+
+
     public void countItemsQuantity() {
         if (filesNumber > 0) {
-            controller.itemsQuantity.setText(String.valueOf(filesNumber) + " Files");
+            controller.itemsQuantity.setText(String.valueOf(filesNumber) + FILES);
             if (foldersNumber > 0)
-                controller.itemsQuantity.setText(controller.itemsQuantity.getText() + COMMA + String.valueOf(foldersNumber) + " Folders");
+                controller.itemsQuantity.setText(controller.itemsQuantity.getText() + COMMA + String.valueOf(foldersNumber) + FOLDERS);
         } else {
             controller.itemsQuantity.setText(NO_FILES);   
         }

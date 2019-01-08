@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -17,14 +12,32 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="541.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="usbac.namely.Controller">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="usbac.namely.Controller">
     <children>
-      <TabPane fx:id="tabPane" prefHeight="193.0" prefWidth="541.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="tabPane" prefHeight="193.0" prefWidth="662.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab closable="false" text="Inverse">
+            <Tab text="Add">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="441.0" layoutY="8.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="36.0">
+                           <image>
+                              <Image url="@../images/img-add.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Option" x="20.0" y="78.0" />
+                        <ComboBox fx:id="addOption" layoutX="20.0" layoutY="87.0" onAction="#switchAddOption" prefWidth="140.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="90.35546875" x="175.0" y="78.0" AnchorPane.leftAnchor="175.0" />
+                        <TextField fx:id="addText" layoutX="175.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add text at the start or end of a file name" AnchorPane.leftAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab text="Inverse">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -36,7 +49,7 @@
                         <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inverse all the text in the files’ name" AnchorPane.leftAnchor="20.0" />
                      </children></AnchorPane>
                </content></Tab>
-          <Tab closable="false" text="Change Order">
+          <Tab text="Change Order">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -52,7 +65,7 @@
                      </children>
                   </AnchorPane>
                </content></Tab>
-            <Tab closable="false" text="Cases">
+            <Tab text="Cases">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -67,7 +80,7 @@
                      </children>
                   </AnchorPane>
                </content></Tab>
-            <Tab closable="false" text="Replace">
+            <Tab text="Replace">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -84,7 +97,7 @@
                      </children>
                   </AnchorPane>
                </content></Tab>
-            <Tab closable="false" text="Delete Files">
+            <Tab text="Delete Files">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>

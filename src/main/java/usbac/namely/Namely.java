@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 public class Namely extends Application {
     
     private final String TITLE = "Namely";
-    private final int WIDTH = 555;
-    private final int HEIGHT = 520;
+    private final int WIDTH = 662;
+    private final int HEIGHT = 550;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -23,8 +23,10 @@ public class Namely extends Application {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
+        
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
+        
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
