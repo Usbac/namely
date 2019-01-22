@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="http://usbac.com.ve/wp-content/uploads/2018/10/icon.png" alt="Markdownify" width="200">
+  <img src="http://usbac.com.ve/wp-content/uploads/2018/10/icon.png" alt="Namely logo" width="200">
   <br>
   Namely
   <br>
@@ -9,7 +9,7 @@
 <h4 align="center">Massive file renamer utility.</h4>
 
 <p align="center">
-<img src="https://img.shields.io/badge/stability-stable-brightgreen.svg"> <img src="https://img.shields.io/badge/version-1.4.0-blue.svg">
+<img src="https://img.shields.io/badge/stability-stable-brightgreen.svg"> <img src="https://img.shields.io/badge/version-1.5.0-blue.svg">
 </p>
 
 </br>
@@ -42,7 +42,7 @@
 
 ## Download
 
-[Namely 1.4.0 - Windows](https://github.com/Usbac/Namely/releases/download/v1.4.0/Namely.1.4.0.zip) </br>
+[Namely 1.5.0 - Windows](https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely.1.5.0.Windows.zip) </br>
 *Native bundle, no JRE required*
 
 
