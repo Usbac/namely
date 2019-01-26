@@ -25,13 +25,13 @@
 
 ## Features
 
-* Easy to use with a Modern interface.
+* Easy to use, with a Modern interface.
 * Preview your changes before applying them.
 * Multiple options for modifying your file's name.
 * Ability to filter which files will be modified based in a Regular Expression.
 * Massive changes under the indicated directory or folder.
-* Option to modify files in the directory's subfolders too.
-* Cross-platform, with support for Windows, Mac OS and Linux.
+* Recursive option, to modify files in the directory's subfolders too.
+* Cross-platform, with support for Windows, MacOS and Linux.
 * And more...
 
 
@@ -42,8 +42,13 @@
 
 ## Download
 
-[Namely 1.5.0 - Windows](https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely.1.5.0.Windows.zip) </br>
-*Native bundle, no JRE required*
+### Native Bundles
+
+No java required
+
+[Namely 1.5.0 - Windows (.exe)](https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely.1.5.0-Windows.zip) </br>
+
+[Namely 1.5.0 - Linux (.deb)](https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely-1.5.0-Linux.zip) </br>
 
 
 ## Contributing
