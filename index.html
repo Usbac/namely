@@ -1,1 +1,338 @@
-Hello world
+<style>
+* {
+    font-family: ubuntu;
+}
+
+body {
+    background-color: #1c2ac8 !important;
+}
+
+.content {
+    margin: 4% 10% 4% 10%;
+}
+
+#footer {
+    bottom: 0px;
+    background-color: #16219b !important;
+}
+
+.footer-text {
+    font-size: 1.2em;
+    color: white;
+    opacity: 0.6;
+}
+.footer-text:hover {
+    color:white;
+}
+
+#namely {
+    width: 60%;
+    margin: 3% auto 0% auto;
+    display: block;
+    position: relative;
+    opacity: 0;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background img {
+    position: relative;
+    opacity: 0.5;
+    height: 40%;
+}
+
+#bck-img-1 {
+    top: 35%;
+    left: -250px;
+}
+
+#bck-img-2 {
+    float: right;
+    top: 10%;
+    right: -250px;
+}
+
+.title {
+    position: absolute;
+    margin-top: 0;
+    margin-left: 0;
+    width: 20%;
+}
+
+.download-button {
+    width: 30%;
+    height: 8%;
+    color: white;
+    background-color: #38b938;
+    font-size: 1.3em;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px white solid;
+}
+.download-button:hover {
+    background-color: #32a332;
+}
+
+.downloads {
+    padding-top: 5%;
+}
+
+.version {
+    font-size: 1.2em;
+    margin: 15px;
+    color: white;
+    opacity: 0.5;
+    text-align: center;
+    display: block;
+}
+
+.download-source {
+    font-size: 1.2em;
+    margin: 15px;
+    color: white;
+    text-align: center;
+    display: block;
+}
+.download-source:hover {
+    color: white;
+}
+
+.download-source > a {
+    color:white;
+}
+.download-source > a:hover {
+    color: white;
+}
+
+.image-ui {
+    width: 65%;
+    margin: 0 auto;
+    display: block;
+}
+
+.title-text {
+    color: white !important;
+    font-size: 2em;
+}
+
+.features {
+    color: white !important;
+    font-size: 2em;
+}
+.features > p {
+    padding: 5px 0px 5px 0px;
+}
+
+.row-padding {
+    padding-top: 10%;
+}
+
+.vcentered {
+    display: flex;
+    align-items: center;
+}
+
+.pd-30 {
+    padding: 30px; 
+    position: relative;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 992px) {
+    #namely {
+        width: 80%;
+        margin-top: 10%;
+    }
+
+    .col-md-6 {
+        padding-bottom: 10%;
+    }
+
+    .vcentered {
+        display: block;
+        align-items: center;
+    }
+
+    .title-text {
+        font-size: 1.5em;
+    }
+
+    .features {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .title {
+        width: 30%;
+    }
+
+    .download-button {
+        width: 100%;
+    }
+
+    #bck-img-1, #bck-img-2 {
+        display: none;
+    }
+
+    .text-center {
+        padding: 5px !important;
+    }
+}
+
+/* MOBILE */
+
+@media screen and (max-device-width: 992px) {
+    #namely {
+        width: 100%;
+        margin-top: 25%;
+        margin-bottom: 5%;
+    }
+
+    .title {
+        width: 50%;
+    }
+}
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Namely</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <div class="background">
+        <img id="bck-img-1" src="http://usbac.com.ve/images/Namely BG.png">
+        <img id="bck-img-2" src="http://usbac.com.ve/images/Namely BG-2.png">
+    </div>
+
+
+<div class="content">
+    <!-- IMAGE -->
+    <img class="title" src="http://usbac.com.ve/images/Namely-title.png">
+    <div class="row">
+        <img id="namely" src="http://usbac.com.ve/images/Namely.png">
+    </div>
+
+    <!-- DOWNLOADS -->
+    <div class="row downloads">
+        <div class="col-xs-6 text-right">
+            <a href="https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely.1.5.0-Windows.zip"><button class="download-button"><i class="fa fa-windows"></i>&nbsp;Download</button></a>
+        </div>
+        <div class="col-xs-6">
+            <a href="https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely.1.5.0-Linux.zip"><button class="download-button"><i class="fa fa-linux"></i>&nbsp;Download</button></a> 
+        </div>
+    </div>
+    <p class="version">Version 1.5.0 </p>
+    <p class="download-source">Download the source code <a href="https://github.com/Usbac/Namely/archive/v1.5.0.zip" >(.zip)</a> | <a href="https://github.com/Usbac/Namely/archive/v1.5.0.tar.gz" >(.tar.gz)</a></p>
+
+    <!-- INFO -->
+    <div class="row row-padding vcentered">
+        <div class="col-md-6">
+            <img class="image-ui align-middle" src="http://usbac.com.ve/images/NamelyUI-1.png">
+        </div>
+        <div class="col-md-6">
+            <span class="title-text">
+                A lot of files that need to be modified or deleted?<br/>
+                <br/>
+                No problem.<br/>
+                <br/>
+                Namely is a massive file renamer utility with a modern and easy to use UI.</span>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="row row-padding vcentered">
+        <div class="col-md-6 col-md-push-6">
+            <img class="image-ui align-middle" style="width: 100%" src="http://usbac.com.ve/images/Namely-platforms.png">
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+            <div class="features">
+                <p>Preview your changes</p>
+                <p>Multiple renaming options</p>
+                <p>Filter based in Regular Expressions</p>
+                <p>Recursive option</p>
+                <p>Cross-platform support</p>
+                <p>And more...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer">
+    <div class="vcentered pd-30">
+        <div class="col-md-4 text-center"><a href="https://github.com/Usbac/Namely/blob/master/LICENSE.md" class="footer-text">GNU General Public License v3.0</a></div>
+        <div class="col-md-4 text-center"><a href="https://github.com/Usbac" class="footer-text">Creator's page</a></div>
+        <div class="col-md-4 text-center"><a href="https://github.com/Usbac/Namely" class="footer-text">Source code</a></div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+var namely = document.getElementById('namely'),
+start_y = -50,
+end_y = 0,
+bottom = start_y, 
+speed = 0.8,
+opacity = 0,
+timer = 0;
+
+timer = setInterval(function() {
+    setTimeout(function() {
+        bottom += 1 - (namely.style.opacity * speed);
+        if (bottom > end_y) {
+            clearInterval(timer);
+        }
+
+        namely.style.bottom = bottom + "px";
+        namely.style.opacity = (start_y-bottom)/start_y;
+    }, 300);
+}, 8);
+
+var 
+bck_speed = 0.1,
+bck_timeout = 1000;
+
+var bckg_2 = document.getElementById('bck-img-2'),
+right = -250, 
+timer_2 = 0;
+
+timer_2 = setInterval(function() {
+    setTimeout(function() {
+        right += 3 - (-250/right) * bck_speed;
+        bckg_2.style.right = right + "px";
+        if (right > 0) {
+            clearInterval(timer_2);
+        }
+    }, bck_timeout);
+}, 1);
+
+var bckg_1 = document.getElementById('bck-img-1'),
+left = -250, 
+timer_1 = 0;
+
+timer_1 = setInterval(function() {
+    setTimeout(function() {
+        left += 3 - (-250/left) * bck_speed;
+        bckg_1.style.left = left + "px";
+        if (left > 0) {
+            clearInterval(timer_1);
+        }
+    }, bck_timeout);
+}, 1);
+</script>
