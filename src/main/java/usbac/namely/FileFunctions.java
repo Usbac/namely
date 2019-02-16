@@ -192,11 +192,13 @@ public final class FileFunctions {
     
     
     /**
-     * Returns the size of the file
+     * Returns the size of the file rounded to two decimal places
      * @param file the file
-     * @return the size of the file expressed in kB
+     * @return the size of the file rounded to two decimal places and expressed in kB
      */
-    public static String getSizeInKb(File file) {
-        return String.format("%.2f", file.length()/KB);
+    public static float getSizeInKb(File file) {
+        float size = (file.length() / KB) * 100;
+        size = Math.round(size);
+        return size / 100;
     }
 }

@@ -144,13 +144,17 @@ public final class Model {
     }
 
     
-    public boolean fileMatchesFields(String fileExtension, float fileSize, long fileModified) {
+    public boolean fileMatchesFields(File file) {
+        String fileExtension = FileFunctions.getExtension(file.getName()).substring(1);
+        float fileSize = FileFunctions.getSizeInKb(file);
+        long fileModified = file.lastModified();
+        
         //If file doesn't matches the indicated extension
         if (!controller.extensionField.getText().isEmpty() && !controller.extensionField.getText().matches(fileExtension))
             return false;
         
         //If file doesn't matches Date filter (Older or Newer than the indicated date)
-        if (controller.datePicker.getValue()!=null && !controller.datePicker.getValue().toString().isEmpty()) {
+        if (controller.datePicker.getValue() != null && !controller.datePicker.getValue().toString().isEmpty()) {
             if ((dateFilter == DateFilter.NEWER && fileModified < getDateInMilli(controller.datePicker)) ||
                 (dateFilter == DateFilter.OLDER && fileModified > getDateInMilli(controller.datePicker)))
                     return false;
@@ -159,26 +163,26 @@ public final class Model {
         //If file doesn't matches Size filter (Smaller or Bigger than the indicated size)
         if (!controller.sizeField.getText().isEmpty() && controller.sizeField.getText().chars().allMatch(Character::isDigit)) {
             float comparativeSize = Float.parseFloat(controller.sizeField.getText());
+            
             if ((sizeFilter == SizeFilter.SMALLER && fileSize > comparativeSize) ||
-                (sizeFilter == SizeFilter.BIGGER && fileSize < comparativeSize))
+                (sizeFilter == SizeFilter.BIGGER && fileSize < comparativeSize)) {
                     return false;
+            }
         }
+        
         return true;
     }
 
     
     public boolean deleteFile(File file, boolean delete) {
-        String fileExtension = FileFunctions.getExtension(file.getName())
-                                            .substring(1);
-        float fileSize = Float.parseFloat(FileFunctions.getSizeInKb(file));
-        long fileModified = file.lastModified();
-        
-        boolean fileMatchesFields = fileMatchesFields(fileExtension, fileSize, fileModified);
-        if (!FileFunctions.matchesRegex(file, controller.getRegex()))
+        boolean fileMatchesFields = fileMatchesFields(file);
+        if (!controller.getRegex().isEmpty() && !FileFunctions.matchesRegex(file, controller.getRegex()))
             fileMatchesFields = false;
 
-        if (delete && fileMatchesFields)
+        if (delete && fileMatchesFields) {
             file.delete();
+        }
+        
         return fileMatchesFields;
     }
 
@@ -192,13 +196,18 @@ public final class Model {
 
 
     public void countItemsQuantity() {
+        String msg;
+        
         if (filesNumber > 0) {
-            controller.itemsQuantity.setText(String.valueOf(filesNumber) + FILES);
-            if (foldersNumber > 0)
-                controller.itemsQuantity.setText(controller.itemsQuantity.getText() + COMMA + String.valueOf(foldersNumber) + FOLDERS);
+            msg = String.valueOf(filesNumber) + FILES;
+            if (foldersNumber > 0) {
+                msg += COMMA + String.valueOf(foldersNumber) + FOLDERS;
+            }
         } else {
-            controller.itemsQuantity.setText(NO_FILES);   
+            msg = NO_FILES;
         }
+        
+        controller.itemsQuantity.setText(msg);
     }
 
 }
