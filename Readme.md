@@ -9,7 +9,7 @@
 <h4 align="center">Massive file renamer utility.</h4>
 
 <p align="center">
-<img src="https://img.shields.io/badge/stability-stable-brightgreen.svg"> <img src="https://img.shields.io/badge/version-1.5.0-blue.svg">
+<img src="https://img.shields.io/badge/stability-stable-brightgreen.svg"> <img src="https://img.shields.io/badge/version-1.5.1-blue.svg">
 </p>
 
 </br>
@@ -35,20 +35,23 @@
 * And more...
 
 
-<p align="center">
-<img src="http://usbac.com.ve/wp-content/uploads/2018/10/NamelyExample1-min.jpg" width="33%" height="33%">   
-<img src="http://usbac.com.ve/wp-content/uploads/2018/10/NamelyExample3-min.jpg" width="33%" height="33%"> 
+<p align="center"> 
+<img src="http://usbac.com.ve/wp-content/uploads/2018/10/NamelyExample3-min.jpg" width="40%"> 
 </p>
 
 ## Download
+
+### Java
+
+[Namely 1.5.1 (.jar)](https://github.com/Usbac/Namely/releases/download/v1.5.1/Namely.jar) </br>
 
 ### Native Bundles
 
 No java required
 
-[Namely 1.5.0 - Windows (.exe)](https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely.1.5.0-Windows.zip) </br>
+[Namely 1.5.1 - Windows (.exe)](https://github.com/Usbac/Namely/releases/download/v1.5.1/Namely.1.5.1-Windows.zip) </br>
 
-[Namely 1.5.0 - Linux (.deb)](https://github.com/Usbac/Namely/releases/download/v1.5.0/Namely-1.5.0-Linux.zip) </br>
+[Namely 1.5.1 - Linux (.deb)](https://github.com/Usbac/Namely/releases/download/v1.5.1/Namely.1.5.1-Linux.zip) </br>
 
 
 ## Contributing
