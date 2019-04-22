@@ -9,7 +9,9 @@
 <h4 align="center">Massive file renamer utility.</h4>
 
 <p align="center">
-<img src="https://img.shields.io/badge/stability-stable-brightgreen.svg"> <img src="https://img.shields.io/badge/version-1.5.1-blue.svg">
+<img src="https://img.shields.io/badge/stability-stable-brightgreen.svg"> 
+<img src="https://img.shields.io/badge/version-1.5.1-blue.svg">
+<img src="https://img.shields.io/badge/license-GNU-orange.svg">
 </p>
 
 </br>
