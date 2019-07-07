@@ -1,4 +1,4 @@
-package usbac.namely;
+package ve.com.usbac.namely;
 
 public class SingleFile {
     private String name, modified, size;

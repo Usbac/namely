@@ -1,6 +1,8 @@
 /nbproject/private/
 /build/
 /dist/
+nbactions.xml
+nb-configuration.xml
 
 *.class
 .idea/

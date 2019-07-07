@@ -2,17 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>usbac</groupId>
+    <groupId>ve.com.usbac</groupId>
     <artifactId>Namely</artifactId>
-    <version>1.5</version>
+    <version>1.5.1</version>
     <packaging>jar</packaging>
+
     <name>Namely</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>usbac.namely.Namely</mainClass>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <mainClass>ve.com.usbac.namely.Namely</mainClass>
     </properties>
 
     <organization>
@@ -20,22 +19,27 @@
         <name>Usbac</name>
     </organization>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>11</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>11</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeScope>system</excludeScope>
+                            <excludeGroupIds>junit,org.mockito,org.hamcrest</excludeGroupIds>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -49,7 +53,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${java.home}/../bin/javafxpackager</executable>
+                            <executable>${java.home}/../bin/javapackager</executable>
                             <arguments>
                                 <argument>-createjar</argument>
                                 <argument>-nocss2bin</argument>
@@ -79,23 +83,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.5.RELEASE</version>
+                <version>3.1</version>
                 <configuration>
-                    <executable>true</executable>
-                    <fork>true</fork>
-                    <mainClass>
-                        ${mainClass}
-                    </mainClass>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArguments>
+                        <bootclasspath>${sun.boot.class.path}${path.separator}${java.home}/lib/jfxrt.jar</bootclasspath>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${java.home}/lib/jfxrt.jar</additionalClasspathElement>
+                    </additionalClasspathElements>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 
 </project>
