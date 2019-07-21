@@ -3,7 +3,6 @@ package ve.com.usbac.namely;
 import java.net.URL;
 import java.util.ResourceBundle; 
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -211,7 +210,7 @@ public final class Controller implements Initializable {
                       + "If this field is empty all files will be modified.")
         );
         aboutButton.setTooltip(
-            new Tooltip("Namely v1.5.1 \n Created by Usbac")
+            new Tooltip("Namely v1.6 \n Created by Usbac")
         );
         recursiveButton.setTooltip(
             new Tooltip("Recursive \n When active, the files in the directory's subfolders will be modified too.")
