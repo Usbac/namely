@@ -3,6 +3,7 @@ package ve.com.usbac.namely;
 import java.net.URL;
 import java.util.ResourceBundle; 
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -42,6 +43,8 @@ public final class Controller implements Initializable {
     protected TabPane tabPane;
     @FXML
     protected DatePicker datePicker;
+    @FXML
+    protected CheckBox modifyFormat;
     @FXML
     private TableColumn tableName, tableModified, tableSize;
     @FXML
@@ -111,8 +114,20 @@ public final class Controller implements Initializable {
         updateCasesOption();
         updateListView();
     }
+    
+    
+    @FXML
+    private void switchModifyFormat() {
+        updateListView();
+    }
         
         
+    @FXML
+    private void updateList() {
+        updateListView();
+    }
+    
+    
     private void updateCasesOption() {
         model.casesOptionSelected = casesOption.getSelectionModel().getSelectedIndex();
     }
@@ -121,6 +136,7 @@ public final class Controller implements Initializable {
     private void updateAddOption() {
         model.addOptionSelected = addOption.getSelectionModel().getSelectedIndex() == 0; 
     }
+    
     
     private void updateListView() {
         if (previewActive) {

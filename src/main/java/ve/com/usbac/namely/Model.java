@@ -159,7 +159,7 @@ public final class Model {
             case 3:
                 return Functions.cases(file, casesOptionSelected);
             case 4:
-                return Functions.replace(file, controller.renameOriginal.getText(), controller.renameReplacement.getText());
+                return Functions.replace(file, controller.renameOriginal.getText(), controller.renameReplacement.getText(), controller.modifyFormat.isSelected());
             case 5:
                 showFile = deleteFile(file, deleteFile);
         }

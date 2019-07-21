@@ -132,15 +132,22 @@ public final class Functions {
      * @param file the file
      * @param original the original text
      * @param replacement the new text
+     * @param modifyFormat modify or not the file extension
      * @return the file with the indicated text replaced
      */
-    public static File replace(File file, String original, String replacement) {
+    public static File replace(File file, String original, String replacement, boolean modifyFormat) {
         String extension = hasExtension(file) ? getExtension(file.getName()) : EMPTY;
-        String newName = file.getName()
-                             .replace(original, replacement);
+        String newName;
         
-        if (hasExtension(file))
-            newName = newName.substring(0, newName.length() - extension.length());
+        if (modifyFormat) {
+            newName = file.getName().replace(original, replacement);
+            
+            return new File(file.getParent(), newName);
+        }
+        
+        newName = file.getName()
+                      .substring(0, file.getName().length() - extension.length())
+                      .replace(original, replacement);
         
         return new File(file.getParent(), newName + extension);
     }

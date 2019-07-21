@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ve.com.usbac.namely.Controller">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ve.com.usbac.namely.Controller">
     <children>
       <TabPane fx:id="tabPane" prefHeight="193.0" prefWidth="662.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -32,7 +33,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Option" x="20.0" y="78.0" />
                         <ComboBox fx:id="addOption" layoutX="20.0" layoutY="87.0" onAction="#switchAddOption" prefWidth="140.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="90.35546875" x="175.0" y="78.0" AnchorPane.leftAnchor="175.0" />
-                        <TextField fx:id="addText" layoutX="175.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <TextField fx:id="addText" layoutX="175.0" layoutY="87.0" onKeyReleased="#updateList" prefHeight="23.0" prefWidth="140.0" />
                         <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add text at the start or end of a file name" AnchorPane.leftAnchor="20.0" />
                      </children>
                   </AnchorPane>
@@ -58,7 +59,7 @@
                               <Image url="@../images/img-order.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="separator" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="70.0" />
+                        <TextField fx:id="separator" layoutX="20.0" layoutY="87.0" onKeyReleased="#updateList" prefHeight="23.0" prefWidth="70.0" />
                         <Text layoutX="20.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Separator" />
                         <Button fx:id="spacingOption" layoutX="100.0" layoutY="87.0" mnemonicParsing="false" onAction="#switchSpacing" prefHeight="23.0" prefWidth="49.0" styleClass="separatorButton" text="A-B" textAlignment="CENTER" />
                         <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change order based in a separator" AnchorPane.leftAnchor="20.0" />
@@ -90,9 +91,11 @@
                            </image>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Original" wrappingWidth="60.35546875" x="20.0" y="78.0" />
-                        <TextField fx:id="renameOriginal" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <TextField fx:id="renameOriginal" layoutX="20.0" layoutY="87.0" onKeyReleased="#updateList" prefHeight="23.0" prefWidth="140.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Replacement" wrappingWidth="90.35546875" x="175.0" y="78.0" AnchorPane.leftAnchor="175.0" />
-                        <TextField fx:id="renameReplacement" layoutX="175.0" layoutY="87.0" prefHeight="23.0" prefWidth="140.0" />
+                        <TextField fx:id="renameReplacement" layoutX="175.0" layoutY="87.0" onKeyReleased="#updateList" prefHeight="23.0" prefWidth="140.0" />
+                        <Text layoutX="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify extension" wrappingWidth="90.35546875" x="175.0" y="78.0" />
+                        <CheckBox fx:id="modifyFormat" layoutX="331.0" layoutY="87.0" mnemonicParsing="false" onAction="#switchModifyFormat" styleClass="checkbox" />
                         <Text fill="#5e5e5e" layoutX="20.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Replace part of the files’ name" AnchorPane.leftAnchor="20.0" />
                      </children>
                   </AnchorPane>
@@ -107,11 +110,11 @@
                            </image>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Extension" wrappingWidth="60.35546875" x="20.0" y="78.0" AnchorPane.leftAnchor="20.0" />
-                        <TextField fx:id="extensionField" layoutX="20.0" layoutY="87.0" prefHeight="23.0" prefWidth="64.0" AnchorPane.leftAnchor="20.0" />
+                        <TextField fx:id="extensionField" layoutX="20.0" layoutY="87.0" onKeyReleased="#updateList" prefHeight="23.0" prefWidth="64.0" AnchorPane.leftAnchor="20.0" />
                         <Text layoutX="-74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="34.6874982714653" x="175.0" y="78.0" AnchorPane.leftAnchor="100.0" />
-                        <DatePicker fx:id="datePicker" layoutX="101.0" layoutY="87.0" prefHeight="25.0" prefWidth="102.0" AnchorPane.leftAnchor="100.0" />
+                        <DatePicker fx:id="datePicker" layoutX="101.0" layoutY="87.0" onKeyReleased="#updateList" prefHeight="25.0" prefWidth="102.0" AnchorPane.leftAnchor="100.0" />
                         <Text layoutX="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size" wrappingWidth="60.35546875" x="20.0" y="78.0" AnchorPane.leftAnchor="217.0" />
-                        <TextField fx:id="sizeField" layoutX="220.0" layoutY="87.0" prefHeight="23.0" prefWidth="97.0" promptText="Size in Kb" AnchorPane.leftAnchor="217.0" />
+                        <TextField fx:id="sizeField" layoutX="220.0" layoutY="87.0" onKeyReleased="#updateList" prefHeight="23.0" prefWidth="97.0" promptText="Size in Kb" AnchorPane.leftAnchor="217.0" />
                         <Button fx:id="sizeFilter" layoutX="242.0" layoutY="62.0" mnemonicParsing="false" onAction="#switchSizeFilter" styleClass="transparent-button" text="Bigger than" AnchorPane.leftAnchor="239.0" />
                         <Button fx:id="dateFilter" layoutX="125.0" layoutY="62.0" mnemonicParsing="false" onAction="#switchDateFilter" styleClass="transparent-button" text="Newer than" AnchorPane.leftAnchor="124.0" />
                         <Text fill="#5e5e5e" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning: The files listed below are the ones that will be deleted" x="20.0" y="145.0" AnchorPane.leftAnchor="20.0" />
@@ -135,7 +138,7 @@
          </image>
       </ImageView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Regex" x="330.0" y="115.0" AnchorPane.rightAnchor="176.3125" />
-      <TextField fx:id="regexInput" layoutX="332.0" layoutY="124.0" prefHeight="23.0" prefWidth="77.0" AnchorPane.rightAnchor="134.0" />
+      <TextField fx:id="regexInput" layoutX="332.0" layoutY="124.0" onKeyReleased="#updateList" prefHeight="23.0" prefWidth="77.0" AnchorPane.rightAnchor="134.0" />
       <Button fx:id="regexInfo" layoutY="99.0" maxHeight="10.0" maxWidth="10.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="5.0" styleClass="transparent-button" text="?" AnchorPane.rightAnchor="158.0" />
       <Text fx:id="itemsQuantity" fill="#838383" strokeType="OUTSIDE" strokeWidth="0.0" text="No files..." AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="9.0" />
       <Button fx:id="aboutButton" mnemonicParsing="false" styleClass="about-button" text="About" textFill="#979797" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="5.0" />

@@ -154,8 +154,30 @@
     -fx-accent: #0068d9;
 }
 
-/* ---> DATE PICKER <--- */
+/* ---> CHECKBOX <--- */
 
+.checkbox {
+    -fx-label-padding: 0;
+    -fx-font-size: 17px;
+}
+
+.checkbox > .box {
+    -fx-border-color: #cccccc;
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.checkbox:selected > .box {
+    -fx-border-color: #0068d9;
+    -fx-background-color: #0068d9;
+}
+
+.checkbox:selected .mark {
+    -fx-background-color: white;
+}
+
+/* ---> DATE PICKER <--- */
 
 .date-picker {
     -fx-background-color: -fx-focus-color;
